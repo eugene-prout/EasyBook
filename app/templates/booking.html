@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+
+{% block body %}
+    <div class="row justify-content-center" style="margin-top: 10px;">
+        <div class="col-10">
+            <div class="card text-center">
+
+                <div class="card-header">
+                    Booking
+                </div>
+                <div class="card-body">
+                    <table class="table table-hover table-bordered">
+                        <th>Id
+                        <th>Customer
+                        <th>Room Number
+                        <th>Start Date
+                        <th>End Date
+                            <tr>
+                                <td>{{ booking.id }}
+                                <td> <a href="{{ url_for('customer', url_name=booking.customer.url_name) }}">{{ booking.customer.name }}</a>
+                                <td> <a href="{{ url_for('room', id=booking.room.id) }}">{{ booking.room.number }}</a>
+                                <td>{{ booking.start_date }}
+                                <td>{{ booking.end_date }}
+                    </table>
+                </div>
+                <div class="card-footer text-muted">
+                    <form method="post">
+
+
+                        <div class="form-group row">
+                            <div class="m-*-auto">
+                                <button type="submit" class="btn btn-warning" >Delete booking</button>
+                            </div>
+                        </div>
+
+                    </form>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

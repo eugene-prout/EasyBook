@@ -28,8 +28,8 @@ class Booking(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     customer_id = db.Column(db.Integer, db.ForeignKey('customer.id'))
     room_id = db.Column(db.Integer, db.ForeignKey('room.id'))
-    start_date = db.Column(db.DateTime, index=True)
-    end_date = db.Column(db.DateTime, index=True)
+    start_date = db.Column(db.Date, index=True)
+    end_date = db.Column(db.Date, index=True)
 
     def __repr__(self):
         return '<Booking Room: {}, Customer: {}, Start: {}, End: {}>'.format(self.room_id, self.customer_id,

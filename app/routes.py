@@ -4,6 +4,7 @@ from wtforms import Form, StringField, validators
 from app import app, db
 from app.models import Customer, Room, Booking
 from app.forms import NewCustomer
+import datetime
 
 
 @app.route('/')
@@ -82,14 +83,38 @@ def customer(url_name):
 @app.route('/booking/new', methods=['GET', 'POST'])
 def new_booking():
     if request.method == 'POST':
-        print(request.form['customer'])
-        return redirect(url_for('index'))
+        print(request.form['start'])
+        print(type(request.form['start']))
+        start_date = datetime.datetime.strptime(request.form['start'], "%d/%m/%Y")
+        #start_date = start_date.date()
+        end_date = datetime.datetime.strptime(request.form['end'], "%d/%m/%Y")
+        #end_date = end_date.date()
+        booking = Booking(customer_id=request.form['customer'], room_id=request.form['room'], start_date=start_date, end_date=end_date)
+        db.session.add(booking)
+        db.session.flush()
+        db.session.commit()
+
+        return redirect(url_for('all_bookings'))
+
     return render_template('new_booking.html', customers=Customer.query.all(), rooms=Room.query.all())
 
 
 @app.route('/all_bookings')
 def all_bookings():
     return render_template('bookings.html', bookings=Booking.query.all())
+
+
+@app.route('/booking/<id>', methods=['GET', 'POST'])
+def booking(id):
+    _booking = Booking.query.filter_by(id=id).first_or_404()
+    if request.method == 'POST':
+        db.session.delete(_booking)
+        db.session.flush()
+        db.session.commit()
+        return redirect(url_for('all_bookings'))
+
+    return render_template('booking.html', booking=_booking)
+
 
 @app.route('/test')
 def test():
