@@ -79,3 +79,14 @@ def customer(url_name):
     return render_template('customer.html', customer=_customer)
 
 
+@app.route('/booking/new', methods=['GET', 'POST'])
+def new_booking():
+    if request.method == 'POST':
+        print(request.form['customer'])
+        return redirect(url_for('index'))
+    return render_template('new_booking.html', customer=Customer.query.all())
+
+
+@app.route('/all_bookings')
+def all_bookings():
+    return render_template('bookings.html', bookings=Booking.query.all())

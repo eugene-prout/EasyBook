@@ -1,6 +1,5 @@
 {% extends "layout.html" %}
 
-
 {% block body %}
     <div class="row justify-content-center" style="margin-top: 10px;">
         <div class="col-10">
@@ -16,15 +15,21 @@
 
                         <div class="form-group">
                             <label for="customer">Customer</label>
-                            <input type="text" class="form-control" id="customer" name="customer" value="{{ request.form.customer }}" placeholder="Name">
+                            <select class="dd" id="customer" name="customer" style="width: auto" value="{{ customer[0] }}">
+
+                                {% for customer in customers %}
+                                <option value={{customer.id}}>{{customer.name}}</option>
+                                {% endfor %}
+                            </select>
+
                         </div>
 
                         <div class="row justify-content-center">
 
-                                <button type="submit" class="btn btn-success" >Create Customer</button>
+                                <button type="submit" class="btn btn-success" >Create Booking</button>
                             </div>
                     </form>
-                        <button class="btn btn-secondary" onclick="window.location='{{ url_for('all_customers') }}'" style="margin-top: 10px">Back to home</button>
+                        <button class="btn btn-secondary" onclick="window.location='{{ url_for('index') }}'" style="margin-top: 10px">Back to home</button>
 
 
                 </div>
@@ -34,4 +39,12 @@
         </div>
     </div>
     </div>
+    <script>
+    $(document).ready(function() {
+
+    $('.dd').select2();
+
+    })
+
+</script>
 {% endblock %}

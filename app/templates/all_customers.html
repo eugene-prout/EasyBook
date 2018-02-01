@@ -8,12 +8,12 @@
         <th>Name
         <th>Email
         <th>Postcode
-      {%- for customer in customers %}
+      {% for customer in customers %}
       <tr>
           <td> <a href="{{ url_for('customer', url_name=customer.url_name) }}">{{ customer.name }}</a>
         <td>{{ customer.email }}
         <td>{{ customer.postcode }}
-      {%- endfor %}
+      {% endfor %}
     </table>
     <p>
       <a href="{{ url_for('new_customers') }}" class="btn btn-large btn-primary">New customer</a>
