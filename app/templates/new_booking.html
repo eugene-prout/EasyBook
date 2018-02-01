@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+
+
+{% block body %}
+    <div class="row justify-content-center" style="margin-top: 10px;">
+        <div class="col-10">
+            <div class="card text-center">
+
+                <div class="card-header">
+                    Create a booking
+                </div>
+
+                <div class=card-body">
+
+                    <form method=post action="">
+
+                        <div class="form-group">
+                            <label for="customer">Customer</label>
+                            <input type="text" class="form-control" id="customer" name="customer" value="{{ request.form.customer }}" placeholder="Name">
+                        </div>
+
+                        <div class="row justify-content-center">
+
+                                <button type="submit" class="btn btn-success" >Create Customer</button>
+                            </div>
+                    </form>
+                        <button class="btn btn-secondary" onclick="window.location='{{ url_for('all_customers') }}'" style="margin-top: 10px">Back to home</button>
+
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    </div>
+{% endblock %}

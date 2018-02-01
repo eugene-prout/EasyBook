@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+
+{% block body %}
+    <div class="row justify-content-center" style="margin-top: 10px;">
+        <div class="col-10">
+            <div class="card text-center">
+
+                <div class="card-header">
+                    Room {{ room.number }}
+                </div>
+                <div class="card-body">
+                    <table class="table table-hover table-bordered">
+                            <th>Number
+                            <th>Capacity
+                        <tr>
+                            <td>{{ room.number }}
+                            <td> {{ room.capacity }}
+                    </table>
+                </div>
+                <div class="card-footer text-muted">
+                    <form method="post">
+
+                        <div class="form-group">
+
+                            <label for="name">To delete type room number</label>
+                            <input type="text" class="form-control" id="name" name="name" value="{{ request.form.number }}" placeholder="Number">
+
+                        </div>
+
+                        <div class="form-group row">
+<div class="m-*-auto">
+                            <button type="submit" class="btn btn-warning" >Delete room</button>
+</div>
+                        </div>
+
+                    </form>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

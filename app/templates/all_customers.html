@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<div id="main" class="container">
+    <h2>All Customers</h2>
+    <table class="table table-hover table-bordered">
+      <tr>
+        <th>Name
+        <th>Email
+        <th>Postcode
+      {%- for customer in customers %}
+      <tr>
+          <td> <a href="{{ url_for('customer', url_name=customer.url_name) }}">{{ customer.name }}</a>
+        <td>{{ customer.email }}
+        <td>{{ customer.postcode }}
+      {%- endfor %}
+    </table>
+    <p>
+      <a href="{{ url_for('new_customers') }}" class="btn btn-large btn-primary">New customer</a>
+
+
+</div>
+{% endblock %}

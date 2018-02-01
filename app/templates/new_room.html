@@ -1,0 +1,56 @@
+{% extends "layout.html" %}
+{#
+<input type="text" id="name" name="name" class="form-control" placeholder="Name" value="{{ request.form.name }}"required>
+#}
+
+{#
+ <div class="form-group row">
+            <div class="controls">
+                <button type="submit" class="btn btn-success" >Create Customer</button>
+                <a href="{{ url_for('index') }}">Back to home</a>
+            </div>
+        </div>
+#}
+
+
+{% block body %}
+    <div class="row justify-content-center" style="margin-top: 10px;">
+        <div class="col-10">
+            <div class="card text-center">
+
+                <div class="card-header">
+                    Create Room
+                </div>
+
+                <div class=card-body">
+
+                    <form method=post action="">
+
+                        <div class="form-group">
+                            <label for="number">Number</label>
+                            <input type="text" class="form-control" id="number" name="number" value="{{ request.form.number }}" placeholder="Number">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="capacity">Capacity</label>
+                            <input type="text" class="form-control" id="capacity" name="capacity" value="{{ request.form.capacity }}" placeholder="Capacity">
+                        </div>
+
+
+
+                        <div class="row justify-content-center">
+
+                                <button type="submit" class="btn btn-success" >Create Room</button>
+                            </div>
+                    </form>
+                        <button class="btn btn-secondary" onclick="window.location='{{ url_for('view_rooms') }}'" style="margin-top: 10px">Back to home</button>
+
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    </div>
+{% endblock %}

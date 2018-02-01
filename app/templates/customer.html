@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+
+{% block body %}
+    <div class="row justify-content-center" style="margin-top: 10px;">
+        <div class="col-10">
+            <div class="card text-center">
+
+                <div class="card-header">
+                    {{ customer.name }}
+                </div>
+                <div class="card-body">
+                    <table class="table table-hover table-bordered">
+                            <th>Id
+                            <th>Name
+                            <th>Email
+                            <th>Postcode
+                        <tr>
+                            <td>{{ customer.id }}
+                            <td> {{ customer.name }}
+                            <td>{{ customer.email }}
+                            <td>{{ customer.postcode }}
+                    </table>
+                </div>
+                <div class="card-footer text-muted">
+                    <form method="post">
+
+                        <div class="form-group">
+
+                            <label for="name">To delete type customer's name</label>
+                            <input type="text" class="form-control" id="name" name="name" value="{{ request.form.name }}" placeholder="Name">
+
+                        </div>
+
+                        <div class="form-group row">
+<div class="m-*-auto">
+                            <button type="submit" class="btn btn-warning" >Delete customer</button>
+</div>
+                        </div>
+
+                    </form>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
