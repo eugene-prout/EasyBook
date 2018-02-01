@@ -84,9 +84,13 @@ def new_booking():
     if request.method == 'POST':
         print(request.form['customer'])
         return redirect(url_for('index'))
-    return render_template('new_booking.html', customer=Customer.query.all())
+    return render_template('new_booking.html', customers=Customer.query.all(), rooms=Room.query.all())
 
 
 @app.route('/all_bookings')
 def all_bookings():
     return render_template('bookings.html', bookings=Booking.query.all())
+
+@app.route('/test')
+def test():
+    return render_template('test.html')

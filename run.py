@@ -1,7 +1,7 @@
 from app import app, db
 from app.models import Customer, Room, Booking
 
-#app.run(host="0.0.0.0")
+app.run(host="0.0.0.0")
 
 
 @app.shell_context_processor
