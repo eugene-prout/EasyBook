@@ -1,9 +1,10 @@
+import flask
 import sqlalchemy
 from flask import render_template, request, url_for, redirect, session
 from wtforms import Form, StringField, validators
 from app import app, db
 from app.models import Customer, Room, Booking
-from app.forms import NewCustomer
+from app.forms import NewCustomer, NewRoom
 import datetime
 
 
@@ -37,13 +38,19 @@ def new_customers():
 
 @app.route('/new_room', methods=['GET', 'POST'])
 def new_room():
-    if request.method == 'POST':
-        r = Room(number=request.form['number'], capacity=request.form['capacity'])
+    form = NewRoom()
+    if form.validate_on_submit():
+        print('Form valid')
+        print(form.number.data)
+        print(form.capacity.data)
+        r = Room(number=form.number.data, capacity=form.capacity.data)
         db.session.add(r)
         db.session.flush()
         db.session.commit()
-        return redirect(url_for('index'))
-    return render_template('new_room.html')
+
+        return redirect(url_for('view_rooms'))
+
+    return render_template('new_room.html', form=form)
 
 
 @app.route('/view_rooms')
@@ -83,12 +90,12 @@ def customer(url_name):
 @app.route('/booking/new', methods=['GET', 'POST'])
 def new_booking():
     if request.method == 'POST':
-        print(request.form['start'])
-        print(type(request.form['start']))
+
         start_date = datetime.datetime.strptime(request.form['start'], "%d/%m/%Y")
-        #start_date = start_date.date()
         end_date = datetime.datetime.strptime(request.form['end'], "%d/%m/%Y")
-        #end_date = end_date.date()
+        _room_id = request.form['room']
+
+
         booking = Booking(customer_id=request.form['customer'], room_id=request.form['room'], start_date=start_date, end_date=end_date)
         db.session.add(booking)
         db.session.flush()

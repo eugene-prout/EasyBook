@@ -25,22 +25,25 @@
                 <div class=card-body">
 
                     <form method=post action="">
-
+                        {{ form.hidden_tag() }}
                         <div class="form-group">
-                            <label for="number">Number</label>
-                            <input type="text" class="form-control" id="number" name="number" value="{{ request.form.number }}" placeholder="Number">
+                            {{ form.number.label }}
+                            {{ form.number(class="form-control") }}
+                            {% for error in form.number.errors %}
+                            <span style="color:red;">[{{ error }}]</span>
+                            {% endfor %}
                         </div>
 
                         <div class="form-group">
-                            <label for="capacity">Capacity</label>
-                            <input type="text" class="form-control" id="capacity" name="capacity" value="{{ request.form.capacity }}" placeholder="Capacity">
+                            {{ form.capacity.label }}
+                            {{ form.capacity(class="form-control") }}
                         </div>
 
 
 
                         <div class="row justify-content-center">
-
-                                <button type="submit" class="btn btn-success" >Create Room</button>
+{#                                {{ form.submit(class="btn btn-success") }}#}
+                            {{ form.submit() }}
                             </div>
                     </form>
                         <button class="btn btn-secondary" onclick="window.location='{{ url_for('view_rooms') }}'" style="margin-top: 10px">Back to home</button>
