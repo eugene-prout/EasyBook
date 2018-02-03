@@ -1,17 +1,4 @@
 {% extends "layout.html" %}
-{#
-<input type="text" id="name" name="name" class="form-control" placeholder="Name" value="{{ request.form.name }}"required>
-#}
-
-{#
- <div class="form-group row">
-            <div class="controls">
-                <button type="submit" class="btn btn-success" >Create Customer</button>
-                <a href="{{ url_for('index') }}">Back to home</a>
-            </div>
-        </div>
-#}
-
 
 {% block body %}
     <div class="row justify-content-center" style="margin-top: 10px;">
@@ -25,37 +12,42 @@
                 <div class=card-body">
 
                     <form method=post action="">
-
+                        {{ form.hidden_tag() }}
                         <div class="form-group">
-                            <label for="name">Name</label>
-                            <input type="text" class="form-control" id="name" name="name" value="{{ request.form.name }}" placeholder="Name">
+                            {{ form.name.label }}
+                            {{ form.name(class="form-control") }}
+                            {% for error in form.name.errors %}
+                                <span style="color:red;">[{{ error }}]</span>
+                            {% endfor %}
                         </div>
 
                         <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="text" class="form-control" id="email" name="email" value="{{ request.form.email }}" placeholder="Email">
+                            {{ form.email.label }}
+                            {{ form.email(class="form-control") }}
+                            {% for error in form.email.errors %}
+                                <span style="color:red;">[{{ error }}]</span>
+                            {% endfor %}
                         </div>
-
 
                         <div class="form-group">
-                            <label for="postcode">Postcode</label>
-                            <input type="text" class="form-control" id="postcode" name="postcode" value="{{ request.form.postcode }}" placeholder="Postcode">
+                            {{ form.postcode.label }}
+                            {{ form.postcode(class="form-control") }}
+                            {% for error in form.postcode.errors %}
+                                <span style="color:red;">[{{ error }}]</span>
+                            {% endfor %}
                         </div>
-
 
                         <div class="row justify-content-center">
-
-                                <button type="submit" class="btn btn-success" >Create Customer</button>
-                            </div>
+                            {{ form.submit(class="btn btn-success") }}
+                        </div>
                     </form>
-                        <button class="btn btn-secondary" onclick="window.location='{{ url_for('all_customers') }}'" style="margin-top: 10px">Back to home</button>
 
+                    <button class="btn btn-secondary" onclick="window.location='{{ url_for('all_customers') }}'" style="margin-top: 10px">Back to home</button>
 
                 </div>
 
             </div>
 
         </div>
-    </div>
     </div>
 {% endblock %}

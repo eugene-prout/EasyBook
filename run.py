@@ -1,7 +1,10 @@
 from app import app, db
 from app.models import Customer, Room, Booking
 
-app.run(host="0.0.0.0")
+try:
+    app.run(host="0.0.0.0")
+except KeyboardInterrupt:
+    quit()
 
 
 @app.shell_context_processor

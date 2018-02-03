@@ -8,8 +8,8 @@
                 <th>Id
                 <th>Customer
                 <th>Room
-                <th>Start date
-                <th>End date
+                <th>Check In
+                <th>Check Out
                     {%- for booking in bookings %}
                         <tr>
                         <td> <a href="{{ url_for('booking', id=booking.id) }}"> {{ booking.id }} </a>

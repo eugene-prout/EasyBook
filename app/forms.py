@@ -8,11 +8,14 @@ class NewCustomer(FlaskForm):
     postcode = wtforms.StringField('Postcode', validators=[wtforms.validators.DataRequired()])
     submit = wtforms.SubmitField('Create Customer')
 
-class Booking(FlaskForm):
-    customer = wtforms.SelectField('Customer', validators=[wtforms.validators.DataRequired()])
-    room = wtforms.SelectField('Room', validators=[wtforms.validators.DataRequired()])
-    start_date = wtforms.DateField('Start date', validators=[wtforms.validators.DataRequired()])
-    end_date = wtforms.DateField('End date', validators=[wtforms.validators.DataRequired()])
+
+class NewBooking(FlaskForm):
+    customer = wtforms.SelectField(u'Customer', coerce=int, validators=[wtforms.validators.DataRequired()])
+    room = wtforms.SelectField('Room', coerce=int, validators=[wtforms.validators.DataRequired()])
+    start_date = wtforms.DateField('Start date', format='%d/%m/%Y')
+    end_date = wtforms.DateField('End date', format='%d/%m/%Y')
+    submit = wtforms.SubmitField('Create Booking')
+
 
 class NewRoom(FlaskForm):
     number = wtforms.StringField('Room number', validators=[wtforms.validators.DataRequired()])

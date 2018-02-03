@@ -4,14 +4,13 @@ from flask import render_template, request, url_for, redirect, session
 from wtforms import Form, StringField, validators
 from app import app, db
 from app.models import Customer, Room, Booking
-from app.forms import NewCustomer, NewRoom
-import datetime
+from app.forms import NewCustomer, NewRoom, NewBooking
+from datetime import datetime
 
 
 @app.route('/')
 @app.route('/index')
 def index():
-
     return render_template('index.html', title='Home', customers=Customer.query.all())
 
 
@@ -21,19 +20,20 @@ def all_customers():
 
 
 @app.route('/new_customer', methods=['GET', 'POST'])
-def new_customers():
-    if request.method == 'POST':
-        #try:
-        name_url = request.form['name'].replace(' ', '_')
-        c = Customer(name=request.form['name'], url_name=name_url, email=request.form['email'],
-                     postcode=request.form['postcode'])
+def new_customer():
+    form = NewCustomer()
+
+    if form.validate_on_submit():
+
+        name_url = form.name.data.replace(' ', '_')
+        c = Customer(name=form.name.data, url_name=name_url, email=form.email.data,
+                     postcode=form.postcode.data)
         db.session.add(c)
         db.session.flush()
         db.session.commit()
         return redirect(url_for('index'))
-        #except sqlalchemy.exc.IntegrityError as err:
-        #return render_template('new_customer.html')
-    return render_template('new_customer.html')
+
+    return render_template('new_customer.html', form=form)
 
 
 @app.route('/new_room', methods=['GET', 'POST'])
@@ -89,21 +89,27 @@ def customer(url_name):
 
 @app.route('/booking/new', methods=['GET', 'POST'])
 def new_booking():
-    if request.method == 'POST':
+    form = NewBooking(request.form)
+    form.customer.choices = [(c.id, c.name) for c in Customer.query.order_by('name')]
+    form.room.choices = [(r.id, r.number) for r in Room.query.order_by('number')]
 
-        start_date = datetime.datetime.strptime(request.form['start'], "%d/%m/%Y")
-        end_date = datetime.datetime.strptime(request.form['end'], "%d/%m/%Y")
-        _room_id = request.form['room']
+    if form.validate_on_submit():
+        start_date = datetime.strftime(datetime.strptime(str(form.start_date.data), '%Y-%m-%d'), '%d/%m/%Y')
+        start_date = datetime.strptime(start_date, '%d/%m/%Y')
+        start_date = datetime.date(start_date)
 
+        end_date = datetime.strftime(datetime.strptime(str(form.end_date.data), '%Y-%m-%d'), '%d/%m/%Y')
+        end_date = datetime.strptime(end_date, '%d/%m/%Y')
+        end_date = datetime.date(end_date)
 
-        booking = Booking(customer_id=request.form['customer'], room_id=request.form['room'], start_date=start_date, end_date=end_date)
-        db.session.add(booking)
+        _booking = Booking(customer_id=form.customer.data, room_id=form.room.data, start_date=start_date, end_date=end_date)
+
+        db.session.add(_booking)
         db.session.flush()
         db.session.commit()
-
         return redirect(url_for('all_bookings'))
 
-    return render_template('new_booking.html', customers=Customer.query.all(), rooms=Room.query.all())
+    return render_template('new_booking.html', form=form)
 
 
 @app.route('/all_bookings')
