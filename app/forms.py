@@ -20,6 +20,17 @@ class CheckUniqueEmail(object):
                 raise ValidationError(self.message)
 
 
+class DeleteCustomer(FlaskForm):
+    nameCheck = wtforms.StringField('Please enter customer name to delete',
+                                    validators=[validators.DataRequired()])
+    submit = wtforms.SubmitField('Delete Customer')
+
+
+class DeleteRoom(FlaskForm):
+    roomNumber = wtforms.IntegerField('Please enter room number to delete',
+                                      validators=[validators.DataRequired()])
+    submit = wtforms.SubmitField('Delete Room')
+
 class NewCustomer(FlaskForm):
     name = wtforms.StringField('Name', validators=[validators.DataRequired()])
     email = wtforms.StringField('Email address', validators=[validators.DataRequired(), validators.email(),
@@ -37,7 +48,13 @@ class NewBooking(FlaskForm):
 
 
 class NewRoom(FlaskForm):
-    number = wtforms.IntegerField('Room number', validators=[validators.DataRequired()])
-    capacity = wtforms.IntegerField('Room capacity', validators=[validators.DataRequired(),
-                                                                 validators.number_range(min=1)])
+    number = wtforms.IntegerField('Room number',
+                                  validators=[validators.DataRequired(),
+                                              validators.number_range(min=1, message="Room number must be above 1")])
+    capacity = wtforms.IntegerField('Room capacity',
+                                    validators=[validators.DataRequired(),
+                                                validators.number_range(min=1, message="Capacity must be above 1")])
     submit = wtforms.SubmitField('Create Room')
+
+
+

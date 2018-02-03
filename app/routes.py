@@ -4,7 +4,7 @@ from flask import render_template, request, url_for, redirect, session
 from wtforms import Form, StringField, validators
 from app import app, db
 from app.models import Customer, Room, Booking
-from app.forms import NewCustomer, NewRoom, NewBooking
+from app.forms import NewCustomer, NewRoom, NewBooking, DeleteCustomer, DeleteRoom
 from datetime import datetime
 
 
@@ -24,10 +24,10 @@ def new_customer():
     form = NewCustomer()
 
     if form.validate_on_submit():
-
         name_url = form.name.data.replace(' ', '_')
         c = Customer(name=form.name.data, url_name=name_url, email=form.email.data,
                      postcode=form.postcode.data)
+
         db.session.add(c)
         db.session.flush()
         db.session.commit()
@@ -40,14 +40,10 @@ def new_customer():
 def new_room():
     form = NewRoom()
     if form.validate_on_submit():
-        print('Form valid')
-        print(form.number.data)
-        print(form.capacity.data)
         r = Room(number=form.number.data, capacity=form.capacity.data)
         db.session.add(r)
         db.session.flush()
         db.session.commit()
-
         return redirect(url_for('view_rooms'))
 
     return render_template('new_room.html', form=form)
@@ -61,30 +57,41 @@ def view_rooms():
 @app.route('/room/<id>', methods=['GET', 'POST'])
 def room(id):
     _room = Room.query.filter_by(id=id).first_or_404()
-    if request.method == 'POST':
-        db.session.delete(_room)
-        db.session.flush()
-        db.session.commit()
-        return redirect(url_for('index'))
-    return render_template('view_room.html', room=_room)
+    form = DeleteRoom()
+
+    if form.validate_on_submit():
+        if form.roomNumber.data == _room.number:
+            for b in _room.booking.all():
+                db.session.delete(b)
+            db.session.delete(_room)
+            db.session.flush()
+            db.session.commit()
+            return redirect(url_for('view_rooms'))
+        else:
+            return render_template('view_room.html', room=_room, form=form, confirm=True)
+
+    return render_template('view_room.html', room=_room, form=form, confirm=False)
 
 
 @app.route('/customer/<url_name>', methods=['GET', 'POST'])
 def customer(url_name):
     _customer = Customer.query.filter_by(url_name=url_name).first_or_404()
-    if request.method == 'POST':
+    form = DeleteCustomer()
 
-        #if request.form['name'] == _customer.name:
+    if form.validate_on_submit():
+        if form.nameCheck.data == _customer.name:
 
-        db.session.delete(_customer)
-        db.session.flush()
-        db.session.commit()
-        return redirect(url_for('index'))
-        # #else:
-        #     return render_template('customer.html', customer=_customer,
-        #                            error="Please type customer's name into box to delete")
+            for b in _customer.bookings.all():
+                db.session.delete(b)
+            db.session.delete(_customer)
+            db.session.flush()
+            db.session.commit()
 
-    return render_template('customer.html', customer=_customer)
+            return redirect(url_for('all_customers'))
+        else:
+            return render_template('customer.html', customer=_customer, form=form, confirm=True)
+
+    return render_template('customer.html', customer=_customer, form=form, confirm=False)
 
 
 @app.route('/booking/new', methods=['GET', 'POST'])
@@ -132,3 +139,8 @@ def booking(id):
 @app.route('/test')
 def test():
     return render_template('test.html')
+
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
