@@ -10,31 +10,35 @@
                 </div>
                 <div class="card-body">
                     <table class="table table-hover table-bordered">
-                            <th>Id
-                            <th>Name
-                            <th>Email
-                            <th>Postcode
-                        <tr>
-                            <td>{{ customer.id }}
-                            <td> {{ customer.name }}
-                            <td>{{ customer.email }}
-                            <td>{{ customer.postcode }}
+                        <th>Id
+                        <th>Name
+                        <th>Email
+                        <th>Postcode
+                            <tr>
+                                <td>{{ customer.id }}
+                                <td> {{ customer.name }}
+                                <td>{{ customer.email }}
+                                <td>{{ customer.postcode }}
                     </table>
                 </div>
                 <div class="card-footer text-muted">
-                    <form method="post">
-
+                    <form method="post" action="">
+                        {{ form.hidden_tag() }}
                         <div class="form-group">
-
-                            <label for="name">To delete type customer's name</label>
-                            <input type="text" class="form-control" id="name" name="name" value="{{ request.form.name }}" placeholder="Name">
-
+                            {{ form.nameCheck.label }}
+                            {{ form.nameCheck(class="form-control") }}
+                            {% for error in form.nameCheck.errors %}
+                                <span style="color: red;">[Please enter customer's name to delete]</span>
+                            {% endfor %}
+                            {% if confirm == True %}
+                                <span style="color:red;">[Please enter customer's name to delete]</span>
+                            {% endif %}
                         </div>
 
                         <div class="form-group row">
-<div class="m-*-auto">
-                            <button type="submit" class="btn btn-warning" >Delete customer</button>
-</div>
+                            <div class="m-*-auto">
+                                {{ form.submit(class="btn btn-warning") }}
+                            </div>
                         </div>
 
                     </form>

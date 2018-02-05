@@ -12,46 +12,45 @@
                 <div class=card-body">
 
                     <form method=post action="">
+                        {{ form.hidden_tag() }}
 
                         <div class="form-group">
-                            <label for="customer">Customer</label>
-
-                            <select class="dd" id="customer" name="customer" style="width: 75%">
-
-                                {% for customer in customers %}
-                                    <option value={{customer.id}}>{{customer.name}}</option>
-                                {% endfor %}
-                            </select>
-
+                            {{ form.customer.label }}
+                            {{ form.customer(class="dd") }}
+                            {% for error in form.customer.errors %}
+                                <span style="color:red">[{{ error }}]</span>
+                            {% endfor %}
                         </div>
 
                         <div class="form-group">
-                            <label for="room">Room</label>
-                            <select class="dd" id="room" name="room" style="width: 75%">
-
-                                {% for room in rooms %}
-                                    <option value={{ room.number }}>{{ room.number }}</option>
-                                {% endfor %}
-                            </select>
-
+                            {{ form.room.label }}
+                            {{ form.room(class="dd") }}
+                            {% for error in form.room.errors %}
+                                <span style="color:red">[{{ error }}]</span>
+                            {% endfor %}
                         </div>
-
                         <div class="form-group">
-                            <label for="datepicker">Choose dates</label>
                             <div class="input-daterange input-group" id="datepicker">
-                                <input type="text" class="input-sm form-control" name="start" value="{{ request.form.start }}"/>
-                                <span class="input-group-addon">to</span>
-                                <input type="text" class="input-sm form-control" name="end" value="{{ request.form.end }}"/>
+
+                                {{ form.start_date.label }}
+                                {{ form.start_date(class="input-sm form-control") }}
+                                {% for error in form.start_date.errors %}
+                                    <span style="color:red">[{{ error }}]</span>
+                                {% endfor %}
+
+                                {{ form.end_date.label }}
+                                {{ form.end_date(class="input-sm form-control") }}
+                                {% for error in form.end_date.errors %}
+                                    <span style="color:red">[{{ error }}]</span>
+                                {% endfor %}
                             </div>
                         </div>
 
                         <div class="row justify-content-center">
-
-                            <button type="submit" class="btn btn-success" >Create Booking</button>
+                            {{ form.submit(class="btn btn-success") }}
                         </div>
-
-
                     </form>
+
                     <button class="btn btn-secondary" onclick="window.location='{{ url_for('all_bookings') }}'" style="margin-top: 10px">Back to home</button>
 
 

@@ -4,14 +4,15 @@ from flask import render_template, request, url_for, redirect, session
 from wtforms import Form, StringField, validators
 from app import app, db
 from app.models import Customer, Room, Booking
-from app.forms import NewCustomer, NewRoom
+from app.forms import NewCustomer, NewRoom, NewBooking, DeleteCustomer, DeleteRoom
 import datetime
 
+
+#TODO: add ability to update database fields
 
 @app.route('/')
 @app.route('/index')
 def index():
-
     return render_template('index.html', title='Home', customers=Customer.query.all())
 
 
@@ -21,33 +22,30 @@ def all_customers():
 
 
 @app.route('/new_customer', methods=['GET', 'POST'])
-def new_customers():
-    if request.method == 'POST':
-        #try:
-        name_url = request.form['name'].replace(' ', '_')
-        c = Customer(name=request.form['name'], url_name=name_url, email=request.form['email'],
-                     postcode=request.form['postcode'])
+def new_customer():
+    form = NewCustomer()
+
+    if form.validate_on_submit():
+        name_url = form.name.data.replace(' ', '_')
+        c = Customer(name=form.name.data, url_name=name_url, email=form.email.data,
+                     postcode=form.postcode.data)
+
         db.session.add(c)
         db.session.flush()
         db.session.commit()
         return redirect(url_for('index'))
-        #except sqlalchemy.exc.IntegrityError as err:
-        #return render_template('new_customer.html')
-    return render_template('new_customer.html')
+
+    return render_template('new_customer.html', form=form)
 
 
 @app.route('/new_room', methods=['GET', 'POST'])
 def new_room():
     form = NewRoom()
     if form.validate_on_submit():
-        print('Form valid')
-        print(form.number.data)
-        print(form.capacity.data)
         r = Room(number=form.number.data, capacity=form.capacity.data)
         db.session.add(r)
         db.session.flush()
         db.session.commit()
-
         return redirect(url_for('view_rooms'))
 
     return render_template('new_room.html', form=form)
@@ -61,49 +59,66 @@ def view_rooms():
 @app.route('/room/<id>', methods=['GET', 'POST'])
 def room(id):
     _room = Room.query.filter_by(id=id).first_or_404()
-    if request.method == 'POST':
-        db.session.delete(_room)
-        db.session.flush()
-        db.session.commit()
-        return redirect(url_for('index'))
-    return render_template('view_room.html', room=_room)
+    form = DeleteRoom()
+
+    if form.validate_on_submit():
+        if form.roomNumber.data == _room.number:
+            for b in _room.booking.all():
+                db.session.delete(b)
+            db.session.delete(_room)
+            db.session.flush()
+            db.session.commit()
+            return redirect(url_for('view_rooms'))
+        else:
+            return render_template('view_room.html', room=_room, form=form, confirm=True)
+
+    return render_template('view_room.html', room=_room, form=form, confirm=False)
 
 
 @app.route('/customer/<url_name>', methods=['GET', 'POST'])
 def customer(url_name):
     _customer = Customer.query.filter_by(url_name=url_name).first_or_404()
-    if request.method == 'POST':
+    form = DeleteCustomer()
 
-        #if request.form['name'] == _customer.name:
+    if form.validate_on_submit():
+        if form.nameCheck.data == _customer.name:
 
-        db.session.delete(_customer)
-        db.session.flush()
-        db.session.commit()
-        return redirect(url_for('index'))
-        # #else:
-        #     return render_template('customer.html', customer=_customer,
-        #                            error="Please type customer's name into box to delete")
+            for b in _customer.bookings.all():
+                db.session.delete(b)
+            db.session.delete(_customer)
+            db.session.flush()
+            db.session.commit()
 
-    return render_template('customer.html', customer=_customer)
+            return redirect(url_for('all_customers'))
+        else:
+            return render_template('customer.html', customer=_customer, form=form, confirm=True)
+
+    return render_template('customer.html', customer=_customer, form=form, confirm=False)
 
 
 @app.route('/booking/new', methods=['GET', 'POST'])
 def new_booking():
-    if request.method == 'POST':
+    form = NewBooking(request.form)
+    form.customer.choices = [(c.id, c.name) for c in Customer.query.order_by('name')]
+    form.room.choices = [(r.id, r.number) for r in Room.query.order_by('number')]
 
-        start_date = datetime.datetime.strptime(request.form['start'], "%d/%m/%Y")
-        end_date = datetime.datetime.strptime(request.form['end'], "%d/%m/%Y")
-        _room_id = request.form['room']
+    if form.validate_on_submit():
+        start_date = datetime.datetime.strftime(datetime.datetime.strptime(str(form.start_date.data), '%Y-%m-%d'), '%d/%m/%Y')
+        start_date = datetime.datetime.strptime(start_date, '%d/%m/%Y')
+        start_date = datetime.datetime.date(start_date)
 
+        end_date = datetime.datetime.strftime(datetime.datetime.strptime(str(form.end_date.data), '%Y-%m-%d'), '%d/%m/%Y')
+        end_date = datetime.datetime.strptime(end_date, '%d/%m/%Y')
+        end_date = datetime.datetime.date(end_date)
 
-        booking = Booking(customer_id=request.form['customer'], room_id=request.form['room'], start_date=start_date, end_date=end_date)
-        db.session.add(booking)
+        _booking = Booking(customer_id=form.customer.data, room_id=form.room.data, start_date=start_date, end_date=end_date)
+
+        db.session.add(_booking)
         db.session.flush()
         db.session.commit()
-
         return redirect(url_for('all_bookings'))
 
-    return render_template('new_booking.html', customers=Customer.query.all(), rooms=Room.query.all())
+    return render_template('new_booking.html', form=form)
 
 
 @app.route('/all_bookings')
@@ -113,6 +128,7 @@ def all_bookings():
 
 @app.route('/booking/<id>', methods=['GET', 'POST'])
 def booking(id):
+    # TODO: WTForms for booking delete
     _booking = Booking.query.filter_by(id=id).first_or_404()
     if request.method == 'POST':
         db.session.delete(_booking)
@@ -123,6 +139,52 @@ def booking(id):
     return render_template('booking.html', booking=_booking)
 
 
+@app.route('/booking/week', methods=['GET', 'POST'])
+def week_book():
+    all_rooms = Room.query.all()
+
+    try:
+        today = datetime.datetime.strptime(request.args.getlist('link')[0], '%Y-%m-%d').date()
+    except IndexError:
+        today = datetime.datetime.today().date()
+
+    day = today.weekday()
+    start_of_week = today - datetime.timedelta(days=day) # Date object of start of week
+
+    dates_of_week = [start_of_week + datetime.timedelta(x) for x in range(7)]
+
+    next_week = dates_of_week[6] + datetime.timedelta(days=1)
+    previous = dates_of_week[0] - datetime.timedelta(days=1)
+
+    return render_template('bookings_week.html', rooms=all_rooms, date_list=dates_of_week, prev=previous, next=next_week)
+
+
+@app.route('/booking/month', methods=['GET', 'POST'])
+def month_book():
+    # TODO: add monthly bookings screen
+    all_rooms = Room.query.all()
+
+    try:
+        today = datetime.datetime.strptime(request.args.getlist('link')[0], '%Y-%m-%d').date()
+    except IndexError:
+        today = datetime.datetime.today().date()
+
+    day = today.weekday()
+    start_of_week = today - datetime.timedelta(days=day) # Date object of start of week
+
+    dates_of_week = [start_of_week + datetime.timedelta(x) for x in range(7)]
+
+    next_week = dates_of_week[6] + datetime.timedelta(days=1)
+    previous = dates_of_week[0] - datetime.timedelta(days=1)
+
+    return render_template('bookings_week.html', rooms=all_rooms, date_list=dates_of_week, prev=previous, next=next_week)
+
+
 @app.route('/test')
 def test():
     return render_template('test.html')
+
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
