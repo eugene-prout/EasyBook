@@ -42,8 +42,8 @@ class NewCustomer(FlaskForm):
 class NewBooking(FlaskForm):
     customer = wtforms.SelectField(u'Customer', coerce=int, validators=[validators.DataRequired()])
     room = wtforms.SelectField('Room', coerce=int, validators=[validators.DataRequired()])
-    start_date = wtforms.DateField('Start date', format='%d/%m/%Y')
-    end_date = wtforms.DateField('End date', format='%d/%m/%Y')
+    start_date = wtforms.DateField('Arrival date', format='%d/%m/%Y')
+    end_date = wtforms.DateField('Departure date', format='%d/%m/%Y')
     submit = wtforms.SubmitField('Create Booking')
 
 

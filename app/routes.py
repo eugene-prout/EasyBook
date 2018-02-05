@@ -5,8 +5,10 @@ from wtforms import Form, StringField, validators
 from app import app, db
 from app.models import Customer, Room, Booking
 from app.forms import NewCustomer, NewRoom, NewBooking, DeleteCustomer, DeleteRoom
-from datetime import datetime
+import datetime
 
+
+#TODO: add ability to update database fields
 
 @app.route('/')
 @app.route('/index')
@@ -101,13 +103,13 @@ def new_booking():
     form.room.choices = [(r.id, r.number) for r in Room.query.order_by('number')]
 
     if form.validate_on_submit():
-        start_date = datetime.strftime(datetime.strptime(str(form.start_date.data), '%Y-%m-%d'), '%d/%m/%Y')
-        start_date = datetime.strptime(start_date, '%d/%m/%Y')
-        start_date = datetime.date(start_date)
+        start_date = datetime.datetime.strftime(datetime.datetime.strptime(str(form.start_date.data), '%Y-%m-%d'), '%d/%m/%Y')
+        start_date = datetime.datetime.strptime(start_date, '%d/%m/%Y')
+        start_date = datetime.datetime.date(start_date)
 
-        end_date = datetime.strftime(datetime.strptime(str(form.end_date.data), '%Y-%m-%d'), '%d/%m/%Y')
-        end_date = datetime.strptime(end_date, '%d/%m/%Y')
-        end_date = datetime.date(end_date)
+        end_date = datetime.datetime.strftime(datetime.datetime.strptime(str(form.end_date.data), '%Y-%m-%d'), '%d/%m/%Y')
+        end_date = datetime.datetime.strptime(end_date, '%d/%m/%Y')
+        end_date = datetime.datetime.date(end_date)
 
         _booking = Booking(customer_id=form.customer.data, room_id=form.room.data, start_date=start_date, end_date=end_date)
 
@@ -126,6 +128,7 @@ def all_bookings():
 
 @app.route('/booking/<id>', methods=['GET', 'POST'])
 def booking(id):
+    # TODO: WTForms for booking delete
     _booking = Booking.query.filter_by(id=id).first_or_404()
     if request.method == 'POST':
         db.session.delete(_booking)
@@ -134,6 +137,47 @@ def booking(id):
         return redirect(url_for('all_bookings'))
 
     return render_template('booking.html', booking=_booking)
+
+
+@app.route('/booking/week', methods=['GET', 'POST'])
+def week_book():
+    all_rooms = Room.query.all()
+
+    try:
+        today = datetime.datetime.strptime(request.args.getlist('link')[0], '%Y-%m-%d').date()
+    except IndexError:
+        today = datetime.datetime.today().date()
+
+    day = today.weekday()
+    start_of_week = today - datetime.timedelta(days=day) # Date object of start of week
+
+    dates_of_week = [start_of_week + datetime.timedelta(x) for x in range(7)]
+
+    next_week = dates_of_week[6] + datetime.timedelta(days=1)
+    previous = dates_of_week[0] - datetime.timedelta(days=1)
+
+    return render_template('bookings_week.html', rooms=all_rooms, date_list=dates_of_week, prev=previous, next=next_week)
+
+
+@app.route('/booking/month', methods=['GET', 'POST'])
+def month_book():
+    # TODO: add monthly bookings screen
+    all_rooms = Room.query.all()
+
+    try:
+        today = datetime.datetime.strptime(request.args.getlist('link')[0], '%Y-%m-%d').date()
+    except IndexError:
+        today = datetime.datetime.today().date()
+
+    day = today.weekday()
+    start_of_week = today - datetime.timedelta(days=day) # Date object of start of week
+
+    dates_of_week = [start_of_week + datetime.timedelta(x) for x in range(7)]
+
+    next_week = dates_of_week[6] + datetime.timedelta(days=1)
+    previous = dates_of_week[0] - datetime.timedelta(days=1)
+
+    return render_template('bookings_week.html', rooms=all_rooms, date_list=dates_of_week, prev=previous, next=next_week)
 
 
 @app.route('/test')

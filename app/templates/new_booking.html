@@ -32,12 +32,13 @@
                         <div class="form-group">
                             <div class="input-daterange input-group" id="datepicker">
 
-
+                                {{ form.start_date.label }}
                                 {{ form.start_date(class="input-sm form-control") }}
                                 {% for error in form.start_date.errors %}
                                     <span style="color:red">[{{ error }}]</span>
                                 {% endfor %}
 
+                                {{ form.end_date.label }}
                                 {{ form.end_date(class="input-sm form-control") }}
                                 {% for error in form.end_date.errors %}
                                     <span style="color:red">[{{ error }}]</span>

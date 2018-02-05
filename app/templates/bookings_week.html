@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+
+{% block body %}
+    <div id="main" class="row justify-content-center" style="margin-top: 10px;">
+        <h2>All Bookings for week commencing {{ date_list[0] }}</h2>
+        <table class="table table-hover table-bordered">
+            <tr>
+                <th>Room Number
+                <th>Monday
+                <th>Tuesday
+                <th>Wednesday
+                <th>Thursday
+                <th>Friday
+                <th>Saturday
+                <th>Sunday
+
+                    {%- for room in rooms %}
+                        <tr>
+                        <td>{{ room.number }}
+                            {%- for date in date_list -%}
+                                {% if room.check_booked(date)%}
+                                    <td class="table-primary">{{ room.who_booked(date).name }}</td>
+
+                                {% else %}
+                                    <td class="table-secondary">Available</td>
+                                {% endif %}
+
+                            {%- endfor %}
+                    {%- endfor %}
+        </table>
+
+        {#            TODO formating for next/prev/new buttons #}
+        <a class="btn btn-info mb-2" role="button" href="{{ url_for('week_book', link=prev) }}" >Previous</a>
+        <button class="btn btn-success mb-2" onclick="window.location='{{ url_for('new_booking') }}'">New booking</button>
+        <button class="btn btn-info mb-2"   onclick="window.location='{{ url_for('week_book', link=next) }}'">Next</button>
+
+
+
+    </div>
+{% endblock %}
