@@ -1,22 +1,20 @@
 {% extends "layout.html" %}
-{#TODO make monthly_bookings.html work #}
+
 {% block body %}
     <div id="main" class="row justify-content-center" style="margin-top: 10px;">
-        <h2>All Bookings for week commencing {{ date_list[0] }}</h2>
-        <table class="table table-hover table-bordered">
-            <tr>
-                <th>Room Number
-                <th>Monday
-                <th>Tuesday
-                <th>Wednesday
-                <th>Thursday
-                <th>Friday
-                <th>Saturday
-                <th>Sunday
+        <h2>All Bookings for: {{ date_list[0].strftime("%B %Y") }}</h2>
+
+            <table class="table table-responsive table-hover table-bordered">
+                <tr>
+
+                    <th class="first-col">#</th>
+                        {% for date in date_list %}
+                            <th><div class="text-muted">{{ date.strftime("%a") }}</div><hr>{{ date }}</th>
+                        {% endfor %}
 
                     {%- for room in rooms %}
                         <tr>
-                        <td>{{ room.number }}
+                        <td class="first-col">{{ room.number }}
                             {%- for date in date_list -%}
                                 {% if room.check_booked(date)%}
                                     <td class="table-primary">{{ room.who_booked(date).name }}</td>
@@ -27,12 +25,10 @@
 
                             {%- endfor %}
                     {%- endfor %}
-        </table>
-
-
-            <a class="btn btn-info mb-2" role="button" href="{{ url_for('week_book', link=prev) }}" >Previous</a>
-            <button class="btn btn-success mb-2" onclick="window.location='{{ url_for('new_booking') }}'">New booking</button>
-            <button class="btn btn-info mb-2"   onclick="window.location='{{ url_for('week_book', link=next) }}'">Next</button>
+            </table>
+        <button class="btn btn-info mb-2" onclick="window.location='{{ url_for('month_book', link=prev) }}'" >Previous</button>
+        <button class="btn btn-success mb-2" onclick="window.location='{{ url_for('new_booking') }}'">New booking</button>
+        <button class="btn btn-info mb-2"   onclick="window.location='{{ url_for('month_book', link=next) }}'">Next</button>
 
 
 

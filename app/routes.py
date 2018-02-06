@@ -6,7 +6,7 @@ from app import app, db
 from app.models import Customer, Room, Booking
 from app.forms import NewCustomer, NewRoom, NewBooking, DeleteCustomer, DeleteRoom
 import datetime
-
+import calendar
 
 #TODO: add ability to update database fields
 
@@ -111,7 +111,9 @@ def new_booking():
         end_date = datetime.datetime.strptime(end_date, '%d/%m/%Y')
         end_date = datetime.datetime.date(end_date)
 
-        _booking = Booking(customer_id=form.customer.data, room_id=form.room.data, start_date=start_date, end_date=end_date)
+        length = (end_date - start_date).days
+
+        _booking = Booking(customer_id=form.customer.data, room_id=form.room.data, start_date=start_date, end_date=end_date, length=length)
 
         db.session.add(_booking)
         db.session.flush()
@@ -161,23 +163,28 @@ def week_book():
 
 @app.route('/booking/month', methods=['GET', 'POST'])
 def month_book():
-    # TODO: add monthly bookings screen
     all_rooms = Room.query.all()
 
     try:
         today = datetime.datetime.strptime(request.args.getlist('link')[0], '%Y-%m-%d').date()
+        year = today.year
+        month = today.month
     except IndexError:
         today = datetime.datetime.today().date()
+        year = datetime.datetime.today().year
+        month = datetime.datetime.today().month
 
+    num_days = calendar.monthrange(year, month)[1]
     day = today.weekday()
-    start_of_week = today - datetime.timedelta(days=day) # Date object of start of week
 
-    dates_of_week = [start_of_week + datetime.timedelta(x) for x in range(7)]
+    dates_of_month = [datetime.date(year, month, day) for day in range(1, num_days+1)]
 
-    next_week = dates_of_week[6] + datetime.timedelta(days=1)
-    previous = dates_of_week[0] - datetime.timedelta(days=1)
+    next_week = dates_of_month[num_days-1] + datetime.timedelta(days=1)
+    print(next_week)
+    previous = dates_of_month[0] - datetime.timedelta(days=1)
+    print(previous)
 
-    return render_template('bookings_week.html', rooms=all_rooms, date_list=dates_of_week, prev=previous, next=next_week)
+    return render_template('monthly_bookings.html', rooms=all_rooms, date_list=dates_of_month, prev=previous, next=next_week)
 
 
 @app.route('/test')

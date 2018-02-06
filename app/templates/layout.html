@@ -32,6 +32,8 @@
         .error-template {padding: 40px 15px;text-align: center;}
         .error-actions {margin-top:15px;margin-bottom:15px;}
         .error-actions .btn { margin-right:10px; }
+        th, td {  white-space: nowrap;  }
+        .first-col {  position: absolute;  width: 5em;  margin-left: -5em;  }
     </style>
 
     <title>Easybook</title>
@@ -71,14 +73,14 @@
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                     <a class="dropdown-item" href="{{ url_for("all_bookings") }}">All bookings</a>
                     <a class="dropdown-item" href="{{ url_for("week_book") }}">Weekly bookings</a>
+                    <a class="dropdown-item" href="{{ url_for("month_book") }}">Monthly bookings</a>
                     <a class="dropdown-item" href="{{ url_for("new_booking") }}">New booking</a>
-                    {#                    TODO add monthly bookings to dropdown screen#}
                 </div>
             </li>
         </ul>
     </div>
 </nav>
-<div id="main" class="container h-75 w-75">
+<div id="main" class="container">
     {% block body %}{% endblock %}
 
 </div>
