@@ -1,8 +1,8 @@
 {% extends "layout.html" %}
 
 {% block body %}
-    <div class="row justify-content-center" style="margin-top: 10px;">
-        <div class="col-10">
+    <div class="row" style="margin-top: 10px;">
+        <div class="col-11 center-block">
             <div class="card text-center">
 
                 <div class="card-header">
@@ -15,8 +15,8 @@
                         {{ form.hidden_tag() }}
 
                         <div class="form-group">
-                            {{ form.customer.label }}
-                            {{ form.customer(class="dd") }}
+                            <label for="customer_dd">{{ form.customer.label }}</label>
+                            {{ form.customer(class="dd", id="customer_dd") }}
                             {% for error in form.customer.errors %}
                                 <span style="color:red">[{{ error }}]</span>
                             {% endfor %}
@@ -29,26 +29,36 @@
                                 <span style="color:red">[{{ error }}]</span>
                             {% endfor %}
                         </div>
-                        <div class="form-group">
-                            <div class="input-daterange input-group" id="datepicker">
+                        {#                    TODO: improve form formatting#}
+                        <div class="col mx-auto">
+                            <div class="form-group ">
 
-                                {{ form.start_date.label }}
-                                {{ form.start_date(class="input-sm form-control") }}
-                                {% for error in form.start_date.errors %}
-                                    <span style="color:red">[{{ error }}]</span>
-                                {% endfor %}
+                                <div class="input-daterange input-group" id="datepicker">
 
-                                {{ form.end_date.label }}
-                                {{ form.end_date(class="input-sm form-control") }}
-                                {% for error in form.end_date.errors %}
-                                    <span style="color:red">[{{ error }}]</span>
-                                {% endfor %}
+                                    {{ form.start_date(class="form-control") }}
+                                    {#                                    {% for error in form.start_date.errors %}#}
+                                    {#                                        <span style="color:red">[{{ error }}]</span>#}
+                                    {#                                    {% endfor %}#}
+
+                                    <div class="input-group-addon">to</div>
+
+                                    {{ form.end_date(class="form-control") }}
+                                    {#                                    {% for error in form.end_date.errors %}#}
+                                    {#                                        <span style="color:red">[{{ error }}]</span>#}
+                                    {#                                    {% endfor %}#}
+                                </div>
                             </div>
                         </div>
 
-                        <div class="row justify-content-center">
-                            {{ form.submit(class="btn btn-success") }}
-                        </div>
+                            <div class="form-group">
+                                {% if error %}
+                                    <span style="color:red">[{{ error }}]</span>
+                                {% endif %}
+                            </div>
+
+                            <div class="row justify-content-center">
+                                {{ form.submit(class="btn btn-success") }}
+                            </div>
                     </form>
 
                     <button class="btn btn-secondary" onclick="window.location='{{ url_for('all_bookings') }}'" style="margin-top: 10px">Back to home</button>
@@ -67,7 +77,8 @@
             $('.dd').select2();
             $('.input-daterange').datepicker({
                 format: "dd/mm/yyyy",
-                todayHighlight: true
+                todayHighlight: true,
+                weekStart: 1
             });
         })
 

@@ -29,12 +29,12 @@
                     {%- endfor %}
         </table>
 
-        {#            TODO formating for next/prev/new buttons #}
-        <a class="btn btn-info mb-2" role="button" href="{{ url_for('week_book', link=prev) }}" >Previous</a>
+    <div class="btn-group btn-group-lg" role="group" aria-label="...">
+        <button class="btn btn-outline-info mb-2" role="button" href="{{ url_for('week_book', link=prev) }}" >Previous</button>
         <button class="btn btn-success mb-2" onclick="window.location='{{ url_for('new_booking') }}'">New booking</button>
-        <button class="btn btn-info mb-2"   onclick="window.location='{{ url_for('week_book', link=next) }}'">Next</button>
+        <button class="btn btn-outline-info mb-2"   onclick="window.location='{{ url_for('week_book', link=next) }}'">Next</button>
 
-
+    </div>
 
     </div>
 {% endblock %}
