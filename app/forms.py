@@ -53,6 +53,17 @@ class NewBooking(FlaskForm):
     end_date = wtforms.DateField('Departure date', format='%d/%m/%Y')
     submit = wtforms.SubmitField('Create Booking')
 
+class SelectBooking(FlaskForm):
+    booking = wtforms.SelectField(u'Booking', coerce=int, validators=[validators.DataRequired()])
+    submit = wtforms.SubmitField('Select booking')
+
+class ChangeBooking(FlaskForm):
+    customer = wtforms.SelectField(u'Customer', coerce=int)
+    room = wtforms.SelectField(u'Room', coerce=int)
+    start_date = wtforms.DateField('Arrival date', format='%d/%m/%Y')
+    end_date = wtforms.DateField('Departure date', format='%d/%m/%Y')
+    submit = wtforms.SubmitField('Change booking')
+
 
 class NewRoom(FlaskForm):
     number = wtforms.IntegerField('Room number',

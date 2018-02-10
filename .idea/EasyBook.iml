@@ -2,7 +2,7 @@
 <module type="PYTHON_MODULE" version="4">
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$" />
-    <orderEntry type="jdk" jdkName="Python 3.6.3 virtualenv at C:\Users\EugeneProut\Documents\EasyBook\venv36" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 3.6.4 virtualenv at C:\Users\EugeneProut\Documents\EasyBook\venv64" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="bootstrap" level="application" />
     <orderEntry type="library" name="popper" level="application" />

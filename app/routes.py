@@ -4,12 +4,14 @@ from flask import render_template, request, url_for, redirect, session
 from wtforms import Form, StringField, validators
 from app import app, db
 from app.models import Customer, Room, Booking
-from app.forms import NewCustomer, NewRoom, NewBooking, DeleteCustomer, DeleteRoom, DeleteBooking
+from app.forms import NewCustomer, NewRoom, NewBooking, DeleteCustomer, DeleteRoom, DeleteBooking, ChangeBooking
 import datetime
 import calendar
-
 #TODO: add ability to update database fields
 
+def check_clash(room, date):
+    if room.check_booked(date):
+        return True
 
 @app.route('/')
 @app.route('/index')
@@ -199,6 +201,27 @@ def month_book():
     print(previous)
 
     return render_template('monthly_bookings.html', rooms=all_rooms, date_list=dates_of_month, prev=previous, next=next_week)
+
+
+@app.route('/booking/modify/<id>', methods=['GET', 'POST'])
+def change_book(id):
+    _booking = Booking.query.filter_by(id=id).first_or_404()
+    form = ChangeBooking()
+    form.customer.choices = [(c.id, c.name) for c in Customer.query.order_by('name')]
+    form.room.choices = [(r.id, r.number) for r in Room.query.order_by('number')]
+
+    if form.validate_on_submit():
+        if form.customer.data is not None:
+            _booking.customer = form.customer.data
+        else:
+            _booking.customer = form.customer.data
+
+        if form.room.data is not None:
+            _booking.room = form.room.data
+        else:
+            _booking.room = form.room.data
+
+        return redirect(url_for('booking', id=_booking.id))
 
 
 @app.route('/test')
