@@ -124,7 +124,6 @@ a = Analysis(['run.py'],
              cipher=block_cipher)
 
 
-#TODO: include recursive files
 def extra_datas(mydir):
     def rec_glob(p, files):
         import os
@@ -144,7 +143,6 @@ def extra_datas(mydir):
 
     return _extra_datas
 
-#TODO: append "data" tp a.datas
 a.datas += extra_datas("app")
 
 
