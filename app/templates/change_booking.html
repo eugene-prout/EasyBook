@@ -1,10 +1,109 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "layout.html" %}
 
-</body>
-</html>
+{% block body %}
+    <div class="row justify-content-center" style="margin-top: 10px;">
+        <div class="col-10">
+            <div class="card text-center">
+
+                <div class="card-header">
+                    Modify Booking
+                </div>
+                <div class="card-body">
+                    <form method="post" action="">
+                        {{ form.hidden_tag() }}
+                        <table class="table table-hover table-bordered">
+
+                            <th scope="col">Value</th>
+                            <th scope="col">Current</th>
+                            <th scope="col">New</th>
+
+
+
+                            <tr>
+                                <td scope="row">Customer</td>
+                                <td><a href="{{ url_for('customer', url_name=booking.customer.url_name) }}">{{ booking.customer.name }}</a></td>
+                                <td>
+                                    <div class="form-group">
+                                        {{ form.customer(class="dd", id="customer_dd") }}
+                                    </div>
+                                    {% for error in form.customer.errors %}
+                                        <span style="color: red;">[Please select a customer's name]</span>
+                                    {% endfor %}
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td scope="row">Room</td>
+                                <td><a href="{{ url_for('room', id=booking.room.id) }}">{{ booking.room.id }}</a></td>
+                                <td>
+                                    <div class="form-group">
+                                        {{ form.room(class="dd", id="room_dd") }}
+                                    </div>
+                                    {% for error in form.room.errors %}
+                                        <span style="color: red;">[Please select a room]</span>
+                                    {% endfor %}
+                                </td>
+                            </tr>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <tr>
+                                        <td scope="row">Arrival date</td>
+                                        <td>{{ flipDate(booking.start_date) }}</td>
+                                        <td>
+                                            {{ form.start_date(class="input-sm form-control date") }}
+                                            {% for error in form.start_date.errors %}
+                                                <span style="color: red;">[{{ error }}]</span>
+                                            {% endfor %}
+                                        </td>
+                                    </tr>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <tr>
+                                        <td scope="row">Departure date </td>
+                                        <td>{{ flipDate(booking.end_date) }}</td>
+                                        <td>
+                                            {{ form.end_date(class="input-sm form-control date") }}
+                                            {% for error in form.end_date.errors %}
+                                                <span style="color: red;">[{{ error }}]</span>
+                                            {% endfor %}
+                                        </td>
+                                    </tr>
+                                </div>
+                            </div>
+
+                        </table>
+                        <div>
+                            {% if date_ovrlp == True %}
+                                <span style="color:red">[Departure date cannot be before arrival date]</span>
+                            {% endif %}
+                            {% if bk_overlap == True %}
+                                <span style="color:red">[This booking would overlap with another]</span>
+                            {% endif %}
+                        </div>
+                        {{ form.submit(class="btn btn-success") }}
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+
+        $(document).ready(function() {
+            $('.dd').select2({
+                dropdownAutoWidth : true,
+                width: 'auto'
+            });
+
+            $('.date').datepicker({
+                format: "dd/mm/yyyy",
+                todayHighlight: true,
+                weekStart: 1
+            });
+        })
+
+    </script>
+{% endblock %}

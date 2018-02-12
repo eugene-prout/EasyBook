@@ -11,7 +11,7 @@
 
                 <div class=card-body">
 
-                    <form method=post action="">
+                    <form method="post" action="">
                         {{ form.hidden_tag() }}
 
                         <div class="form-group">
@@ -72,7 +72,10 @@
     <script>
 
         $(document).ready(function() {
-            $('.dd').select2();
+            $('.dd').select2({
+                dropdownAutoWidth: true,
+                width: 'auto'
+            });
             $('.input-daterange').datepicker({
                 format: "dd/mm/yyyy",
                 todayHighlight: true,

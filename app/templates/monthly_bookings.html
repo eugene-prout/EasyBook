@@ -9,7 +9,7 @@
 
                 <th class="first-col">#</th>
                 {% for date in date_list %}
-                    <th><div class="text-muted">{{ date.strftime("%a") }}</div><hr>{{ date }}</th>
+                    <th><div class="text-muted">{{ date.strftime("%a") }}</div><hr>{{ flipDate(date) }}</th>
                 {% endfor %}
 
                 {%- for room in rooms %}

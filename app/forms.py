@@ -19,6 +19,11 @@ class CheckUniqueEmail(object):
             if c.email == e:
                 raise ValidationError(self.message)
 
+class CheckDateOrder(object):
+    def __int__(self, message=None):
+        if not message:
+            message = u'Please select a departure date after the arrival date'
+
 
 class DeleteCustomer(FlaskForm):
     nameCheck = wtforms.StringField('Please enter customer name to delete',
@@ -53,15 +58,17 @@ class NewBooking(FlaskForm):
     end_date = wtforms.DateField('Departure date', format='%d/%m/%Y')
     submit = wtforms.SubmitField('Create Booking')
 
+
 class SelectBooking(FlaskForm):
     booking = wtforms.SelectField(u'Booking', coerce=int, validators=[validators.DataRequired()])
     submit = wtforms.SubmitField('Select booking')
 
+
 class ChangeBooking(FlaskForm):
-    customer = wtforms.SelectField(u'Customer', coerce=int)
-    room = wtforms.SelectField(u'Room', coerce=int)
-    start_date = wtforms.DateField('Arrival date', format='%d/%m/%Y')
-    end_date = wtforms.DateField('Departure date', format='%d/%m/%Y')
+    customer = wtforms.SelectField(u'Customer', coerce=int, validators=[validators.DataRequired()])
+    room = wtforms.SelectField(u'Room', coerce=int, validators=[validators.DataRequired()])
+    start_date = wtforms.DateField('Arrival date', format='%d/%m/%Y', validators=[validators.DataRequired()])
+    end_date = wtforms.DateField('Departure date', format='%d/%m/%Y', validators=[validators.DataRequired()])
     submit = wtforms.SubmitField('Change booking')
 
 
