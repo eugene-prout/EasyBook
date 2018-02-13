@@ -1,0 +1,135 @@
+<!doctype html>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<!-- Bootstrap CSS -->
+
+<head>
+    {#    Jquery#}
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+
+    {#    Bootstrap #}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    {# Moment #}
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.js"></script>
+
+    {#    Datepicker#}
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.js"></script>
+
+    {#    Select (dropdown) #}
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/0.1.0-beta.10/select2-bootstrap.css" />
+
+    {#    Datepicker#}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+
+
+    <style>
+        .error-template {padding: 40px 15px;text-align: center;}
+        .error-actions {margin-top:15px;margin-bottom:15px;}
+        .error-actions .btn { margin-right:10px; }
+        th, td {  white-space: nowrap;  }
+        .first-col {  position: absolute;  width: 5em;  margin-left: -5em;  }
+        .center_div{  margin: 0 auto;  width:80% /* value of your choice which suits your alignment */  }
+    </style>
+
+    <title>Easybook</title>
+
+</head>
+
+
+
+<body style=" background-color: rgba(38,225,255,0.33);">
+
+<div class="row" style="margin-top: 10px;">
+
+
+
+    <div class="col-11 center-block">
+                <div class="btn-group btn-group-lg" role="group" aria-label="...">
+                    <button class="btn btn-outline-info mb-2" onclick="window.location='{{ url_for('booking', id=booking.id) }}'" >Back to booking overview</button>
+        <button class="btn btn-success mb-2" onclick="printDiv('invoice')">Print Invoice</button>
+                </div>
+
+        <hr>
+        <div id="invoice">
+            <p class="text-right display-2">Invoice</p>
+            <p class="text-left display-4"><b>Bryncoch Farm Camp Site</b></p>
+            <p class="text-left display-4">Llandyfan <br> Ammanford <br> Carmarthenshire <br> SA18 2TY</p>
+            <p class="text-right display-4">{{ flipDate(date) }}</p>
+
+            <hr>
+            <h1 class="display-4">
+                <b>
+                    Customer details:</b>
+                <br>
+                Name: {{ booking.customer.name }}
+                <br>
+                Invoice for {{ booking.customer.name }}
+                <br>
+                Arrival Date: {{ flipDate(  booking.start_date)}}
+                <br>
+                Departure Date: {{ flipDate(booking.end_date)}}
+                <br>
+                Room: {{ booking.room.number }}
+
+            </h1>
+
+            <br>
+            <hr>
+            <h2 class="display-4">
+                <table class="table table-bordered table-primary">
+                    <thead>
+                    <tr>
+                        <th scope="col">Nights</th>
+                        <th scope="col">Cost per night</th>
+                        <th scope="col">Total cost</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>{{ booking.length }}</td>
+                        <td>£{{ cost }}</td>
+                        <td>£{{ total }}</td>
+                    </tr>
+                    </tbody>
+
+                </table>
+                <br>
+                <b>Total to pay: £{{ total }}</b>
+                <br>
+                <hr>
+            </h2>
+            <h3 class="display-4">
+
+                <br>
+                <br>
+                <div>
+                    -----------------
+                    <br>Manager
+                </div>
+            </h3>
+        </div>
+
+
+    </div>
+</div>
+</div>
+<script>
+    function printDiv(divName) {
+        var printContents = document.getElementById(divName).innerHTML;
+        var originalContents = document.body.innerHTML;
+
+        document.body.innerHTML = printContents;
+
+        window.print();
+
+        document.body.innerHTML = originalContents;
+    }
+</script>
+</body>

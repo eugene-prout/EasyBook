@@ -2,7 +2,7 @@
 
 {% block body %}
     <div id="main" class="row justify-content-center" style="margin-top: 10px;">
-        <h2>All Bookings for week commencing {{ date_list[0] }}</h2>
+        <h2>All Bookings for week commencing {{ flipDate(date_list[0]) }}</h2>
         <table class="table table-hover table-bordered">
             <tr>
                 <th>Room Number

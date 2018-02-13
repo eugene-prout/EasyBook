@@ -23,6 +23,7 @@
                                 <td>{{ flipDate(booking.end_date) }}
                     </table>
                     <button class="btn btn-secondary mb-2" onclick="window.location='{{ url_for('change_book', id=booking.id) }}'">Modify this booking</button>
+                    <button class="btn btn-secondary mb-2" onclick="window.location='{{ url_for('new_invoice', id=booking.id) }}'">Create invoice for this booking</button>
 
                 </div>
                 <form method="post">
@@ -38,7 +39,7 @@
                         {% endif %}
                     </div>
 
-                        {{ form.submit(class="btn btn-warning") }}
+                        {{ form.submit(class="btn btn-danger") }}
 
                 </form>
 

@@ -1,17 +1,21 @@
 from flask import render_template, request, url_for, redirect
 from app import app, db
 from app.models import Customer, Room, Booking
-from app.forms import NewCustomer, NewRoom, NewBooking, DeleteCustomer, DeleteRoom, DeleteBooking, ChangeBooking
+from app.forms import NewCustomer, NewRoom, NewBooking, DeleteCustomer, DeleteRoom, DeleteBooking, ChangeBooking, \
+    GetCost
 import datetime
 import calendar
 
+#TODO: query guest/room database
+#TODO: add autoincrementing invoice numbers - pickle/shelve?
 
-#Utility for JINJA to flip date around to user-friendly format. Use by {{ flipDate(date) }}
+
 @app.context_processor
 def utility_processor():
-    def flipDate(date):
+    """Utility for JINJA to flip date around to user-friendly format. Use by {{ flipDate(date) }} """
+    def flip_date(date):
         return datetime.date.strftime(date, '%d/%m/%Y')
-    return dict(flipDate=flipDate)
+    return dict(flipDate=flip_date)
 
 
 @app.route('/')
@@ -262,9 +266,18 @@ def change_book(id):
 
     return render_template('change_booking.html', form=form, booking=_booking )
 
-@app.route('/invoice/new')
-def new_invoice():
-    pass
+@app.route('/invoice/<id>', methods=['GET', 'POST'])
+def new_invoice(id):
+    _booking = Booking.query.filter_by(id=id).first_or_404()
+    form = GetCost()
+
+    if form.validate_on_submit():
+        total = form.cost.data * _booking.length
+        return render_template('invoice.html', booking=_booking, cost=form.cost.data, total=total, date=datetime.datetime.today().date())
+
+    return render_template('new_invoice.html', form=form, booking=_booking)
+
+
 
 
 @app.route('/test')

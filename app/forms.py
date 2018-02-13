@@ -81,3 +81,6 @@ class NewRoom(FlaskForm):
                                                 validators.number_range(min=1, message="Capacity must be above 1")])
     submit = wtforms.SubmitField('Create Room')
 
+class GetCost(FlaskForm):
+    cost = wtforms.DecimalField('Cost per night', validators=[validators.DataRequired()])
+    submit = wtforms.SubmitField('Select booking')
