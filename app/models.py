@@ -18,7 +18,7 @@ class Room(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     number = db.Column(db.Integer, unique=True)
     capacity = db.Column(db.Integer)
-    bookings = db.relation('Booking', backref='room', lazy='joined')
+    bookings = db.relation('Booking', backref='room', lazy='dynamic')
 
     def check_booked(self, date):
         for booking in self.bookings:

@@ -1,14 +1,17 @@
-import flask
-import sqlalchemy
-from flask import render_template, request, url_for, redirect, session
-from wtforms import Form, StringField, validators
+from flask import render_template, request, url_for, redirect
 from app import app, db
 from app.models import Customer, Room, Booking
-from app.forms import NewCustomer, NewRoom, NewBooking, DeleteCustomer, DeleteRoom, DeleteBooking
+from app.forms import NewCustomer, NewRoom, NewBooking, DeleteCustomer, DeleteRoom, DeleteBooking, ChangeBooking
 import datetime
 import calendar
 
-#TODO: add ability to update database fields
+
+#Utility for JINJA to flip date around to user-friendly format. Use by {{ flipDate(date) }}
+@app.context_processor
+def utility_processor():
+    def flipDate(date):
+        return datetime.date.strftime(date, '%d/%m/%Y')
+    return dict(flipDate=flipDate)
 
 
 @app.route('/')
@@ -64,7 +67,7 @@ def room(id):
 
     if form.validate_on_submit():
         if form.roomNumber.data == _room.number:
-            for b in _room.booking.all():
+            for b in _room.bookings:
                 db.session.delete(b)
             db.session.delete(_room)
             db.session.flush()
@@ -84,7 +87,7 @@ def customer(url_name):
     if form.validate_on_submit():
         if form.nameCheck.data == _customer.name:
 
-            for b in _customer.bookings.all():
+            for b in _customer.bookings:
                 db.session.delete(b)
             db.session.delete(_customer)
             db.session.flush()
@@ -104,11 +107,13 @@ def new_booking():
     form.room.choices = [(r.id, r.number) for r in Room.query.order_by('number')]
 
     if form.validate_on_submit():
-        start_date = datetime.datetime.strftime(datetime.datetime.strptime(str(form.start_date.data), '%Y-%m-%d'), '%d/%m/%Y')
+        start_date = datetime.datetime.strftime(datetime.datetime.strptime(str(form.start_date.data), '%Y-%m-%d'),
+                                                '%d/%m/%Y')
         start_date = datetime.datetime.strptime(start_date, '%d/%m/%Y')
         start_date = datetime.datetime.date(start_date)
 
-        end_date = datetime.datetime.strftime(datetime.datetime.strptime(str(form.end_date.data), '%Y-%m-%d'), '%d/%m/%Y')
+        end_date = datetime.datetime.strftime(datetime.datetime.strptime(str(form.end_date.data), '%Y-%m-%d'),
+                                              '%d/%m/%Y')
         end_date = datetime.datetime.strptime(end_date, '%d/%m/%Y')
         end_date = datetime.datetime.date(end_date)
 
@@ -120,10 +125,11 @@ def new_booking():
 
         for date in dates_of_booking:
             if _room.check_booked(date):
-                print('Overlapped bookings')
+                #print('Overlapped bookings')
                 return render_template('new_booking.html', form=form, error="This booking overlaps with another.")
 
-        _booking = Booking(customer_id=form.customer.data, room_id=form.room.data, start_date=start_date, end_date=end_date, length=length)
+        _booking = Booking(customer_id=form.customer.data, room_id=form.room.data, start_date=start_date,
+                           end_date=end_date, length=length)
 
         db.session.add(_booking)
         db.session.flush()
@@ -172,7 +178,8 @@ def week_book():
     next_week = dates_of_week[6] + datetime.timedelta(days=1)
     previous = dates_of_week[0] - datetime.timedelta(days=1)
 
-    return render_template('bookings_week.html', rooms=all_rooms, date_list=dates_of_week, prev=previous, next=next_week)
+    return render_template('bookings_week.html', rooms=all_rooms, date_list=dates_of_week, prev=previous,
+                           next=next_week)
 
 
 @app.route('/booking/month', methods=['GET', 'POST'])
@@ -194,11 +201,70 @@ def month_book():
     dates_of_month = [datetime.date(year, month, day) for day in range(1, num_days+1)]
 
     next_week = dates_of_month[num_days-1] + datetime.timedelta(days=1)
-    print(next_week)
     previous = dates_of_month[0] - datetime.timedelta(days=1)
-    print(previous)
 
-    return render_template('monthly_bookings.html', rooms=all_rooms, date_list=dates_of_month, prev=previous, next=next_week)
+    return render_template('monthly_bookings.html', rooms=all_rooms, date_list=dates_of_month, prev=previous,
+                           next=next_week)
+
+
+@app.route('/booking/modify/<id>', methods=['GET', 'POST'])
+def change_book(id):
+    _booking = Booking.query.filter_by(id=id).first_or_404()
+    format_strt = datetime.date.strftime(_booking.start_date, '%d-%m-%Y')
+    format_end = datetime.date.strftime(_booking.end_date, '%d-%m-%Y')
+    form = ChangeBooking(request.form)
+    form.customer.choices = [(c.id, c.name) for c in Customer.query.order_by('name')]
+    form.room.choices = [(r.id, r.number) for r in Room.query.order_by('number')]
+
+    if form.validate_on_submit():
+
+        start_date = datetime.datetime.strftime(datetime.datetime.strptime(str(form.start_date.data), '%Y-%m-%d'),
+                                                '%d/%m/%Y')
+        start_date = datetime.datetime.date(datetime.datetime.strptime(start_date, '%d/%m/%Y'))
+
+        end_date = datetime.datetime.strftime(datetime.datetime.strptime(str(form.end_date.data), '%Y-%m-%d'),
+                                              '%d/%m/%Y')
+        end_date = datetime.datetime.date(datetime.datetime.strptime(end_date, '%d/%m/%Y'))
+
+        #Check if end date is greater than start date
+        if end_date > start_date:
+            pass
+        else:
+            return render_template('change_booking.html', form=form, booking=_booking, date_ovrlp=True)
+
+        _room = Room.query.filter_by(id=form.room.data).first()
+
+        dates_of_booking = [start_date + datetime.timedelta(x) for x in range((end_date - start_date).days)]
+        #For date in booking, check if room is booked
+        for date in dates_of_booking:
+            if _room.check_booked(date):
+                #Try to
+                #If the checked date's booking id is equal to modifying booking's id, ignore
+                try:
+                    if _room.bookings.filter_by(start_date=start_date).first().id == _booking.id:
+                        break
+                #AttributeError is if no booking exists on that date
+                except AttributeError:
+                    pass
+
+                return render_template('change_booking.html', form=form, booking=_booking,
+                                       bk_overlap=True)
+        #Update fields
+        _booking.customer_id = form.customer.data
+        _booking.room_id = form.room.data
+        _booking.start_date = start_date
+        _booking.end_date = end_date
+
+        #Commit session
+        db.session.commit()
+
+        return redirect(url_for('booking', id=_booking.id))
+
+    return render_template('change_booking.html', form=form, booking=_booking )
+
+@app.route('/invoice/new')
+def new_invoice():
+    pass
 
 
 @app.route('/test')
