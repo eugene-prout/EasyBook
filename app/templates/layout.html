@@ -6,7 +6,7 @@
 <!-- Bootstrap CSS -->
 
 <head>
-        {#    Jquery#}
+    {#    Jquery#}
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 
     {#    Bootstrap #}
@@ -62,12 +62,22 @@
                 <a class="nav-link" href="{{ url_for("index") }}">Home <span class="sr-only">(current)</span></a>
             </li>
 
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url_for("all_customers") }}">Customers</a>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle dropright" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown">Customers</a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" href="{{ url_for("all_customers") }}">All customers</a>
+                    <a class="dropdown-item" href="{{ url_for("new_customer") }}">New customer</a>
+                    <a class="dropdown-item" href="{{ url_for("search_customer") }}">Search customer database</a>
+                </div>
             </li>
 
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url_for("view_rooms") }}">Rooms</a>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle dropright" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown">Rooms</a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" href="{{ url_for("view_rooms") }}">All rooms</a>
+                    <a class="dropdown-item" href="{{ url_for("new_room") }}">New room</a>
+                    <a class="dropdown-item" href="{{ url_for("search_room") }}">Search room database</a>
+                </div>
             </li>
 
             <li class="nav-item dropdown">

@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+
+{% block body %}
+    <div class="row justify-content-center" style="margin-top: 10px;">
+        <div class="col-11 center-block">
+            <div class="card text-center">
+
+                <div class="card-header">
+                    Search Customer Database
+                </div>
+                <div class="card-body">
+
+                    <form method="post">
+                        {{ form.hidden_tag() }}
+                        <div class="form-group">
+                            {{ form.customer.label }}
+                            {{ form.customer(class="dd") }}
+                            {% for error in form.customer.errors %}
+                                <span style="color: red;">[Please select a customer's name]</span>
+                            {% endfor %}
+
+                        </div>
+
+                        {{ form.submit(class="btn btn-success") }}
+
+                    </form>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+        <script>
+
+            $(document).ready(function() {
+                $('.dd').select2({
+                    dropdownAutoWidth: true,
+                    width: 'auto'
+            })
+
+        </script>
+{% endblock %}

@@ -2,11 +2,10 @@ from flask import render_template, request, url_for, redirect
 from app import app, db
 from app.models import Customer, Room, Booking
 from app.forms import NewCustomer, NewRoom, NewBooking, DeleteCustomer, DeleteRoom, DeleteBooking, ChangeBooking, \
-    GetCost
+    GetCost, SelectCustomer, SelectRoom
 import datetime
 import calendar
 
-#TODO: query guest/room database
 #TODO: add autoincrementing invoice numbers - pickle/shelve?
 
 
@@ -102,6 +101,30 @@ def customer(url_name):
             return render_template('customer.html', customer=_customer, form=form, confirm=True)
 
     return render_template('customer.html', customer=_customer, form=form, confirm=False)
+
+
+@app.route('/customer/search', methods=['GET', 'POST'])
+def search_customer():
+    form = SelectCustomer()
+    form.customer.choices = [(c.id, c.name) for c in Customer.query.order_by('name')]
+
+    if form.validate_on_submit():
+        _customer = Customer.query.filter_by(id=form.customer.data).first_or_404()
+        return redirect(url_for('customer', url_name=_customer.url_name))
+
+    return render_template('customer_search.html', form=form)
+
+
+@app.route('/room/search', methods=['GET', 'POST'])
+def search_room():
+    form = SelectRoom()
+    form.room.choices = [(r.id, r.number) for r in Room.query.order_by('number')]
+
+    if form.validate_on_submit():
+        _room = Room.query.filter_by(id=form.room.data).first_or_404()
+        return redirect(url_for('room', id=_room.id))
+
+    return render_template('room_search.html', form=form)
 
 
 @app.route('/booking/new', methods=['GET', 'POST'])
@@ -266,6 +289,7 @@ def change_book(id):
 
     return render_template('change_booking.html', form=form, booking=_booking )
 
+
 @app.route('/invoice/<id>', methods=['GET', 'POST'])
 def new_invoice(id):
     _booking = Booking.query.filter_by(id=id).first_or_404()
@@ -276,8 +300,6 @@ def new_invoice(id):
         return render_template('invoice.html', booking=_booking, cost=form.cost.data, total=total, date=datetime.datetime.today().date())
 
     return render_template('new_invoice.html', form=form, booking=_booking)
-
-
 
 
 @app.route('/test')

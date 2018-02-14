@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+
+{% block body %}
+    <div class="row justify-content-center" style="margin-top: 10px;">
+        <div class="col-11 center-block">
+            <div class="card text-center">
+
+                <div class="card-header">
+                    Search Room Database
+                </div>
+                <div class="card-body">
+
+                    <form method="post">
+                        {{ form.hidden_tag() }}
+                        <div class="form-group">
+                            {{ form.room.label }}
+                            {{ form.room(class="dd") }}
+                            {% for error in form.room.errors %}
+                                <span style="color: red;">[Please select a room number]</span>
+                            {% endfor %}
+
+                        </div>
+
+                        {{ form.submit(class="btn btn-success") }}
+
+                    </form>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+        <script>
+
+            $(document).ready(function() {
+                $('.dd').select2({
+                    dropdownAutoWidth: true,
+                    width: 'auto'
+                });
+            })
+
+        </script>
+{% endblock %}

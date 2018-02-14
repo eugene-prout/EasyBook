@@ -34,6 +34,13 @@ class Room(db.Model):
         else:
             return None
 
+    def get_booking(self, date):
+        for booking in self.bookings:
+            if (booking.start_date <= date) and (booking.end_date >= date):
+                return booking
+        else:
+            return None
+
     def __repr__(self):
         return '<Room Id: {}, Number: {}, Capacity: {}>'.format(self.id, self.number, self.capacity)
 

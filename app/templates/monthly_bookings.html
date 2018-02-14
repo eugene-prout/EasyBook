@@ -17,7 +17,7 @@
                     <td class="first-col">{{ room.number }}
                         {%- for date in date_list -%}
                             {% if room.check_booked(date)%}
-                                <td class="table-primary">{{ room.who_booked(date).name }}</td>
+                                <td class="table-primary"><a href="{{ url_for('booking', id=room.get_booking(date).id) }}">{{ room.get_booking(date).customer.name }}</a></td>
 
                             {% else %}
                                 <td class="table-secondary">Available</td>
@@ -30,7 +30,7 @@
         <div class="btn-group btn-group-lg" role="group" aria-label="...">
             <button class="btn btn-outline-info mb-2" onclick="window.location='{{ url_for('month_book', link=prev) }}'" >Previous</button>
             <button class="btn btn-success mb-2" onclick="window.location='{{ url_for('new_booking') }}'">New booking</button>
-            <button class="btn btn--outline-info mb-2"   onclick="window.location='{{ url_for('month_book', link=next) }}'">Next</button>
+            <button class="btn btn-outline-info mb-2"   onclick="window.location='{{ url_for('month_book', link=next) }}'">Next</button>
 
         </div>
 

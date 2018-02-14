@@ -64,6 +64,17 @@ class SelectBooking(FlaskForm):
     submit = wtforms.SubmitField('Select booking')
 
 
+class SelectCustomer(FlaskForm):
+    customer = wtforms.SelectField(u'Customer name', coerce=int, validators=[validators.DataRequired()])
+    submit = wtforms.SubmitField('Select customer')
+
+
+class SelectRoom(FlaskForm):
+    room = wtforms.SelectField(u'Room number', coerce=int, validators=[validators.DataRequired()])
+    submit = wtforms.SubmitField('Select room')
+
+
+
 class ChangeBooking(FlaskForm):
     customer = wtforms.SelectField(u'Customer', coerce=int, validators=[validators.DataRequired()])
     room = wtforms.SelectField(u'Room', coerce=int, validators=[validators.DataRequired()])
@@ -80,6 +91,7 @@ class NewRoom(FlaskForm):
                                     validators=[validators.DataRequired(),
                                                 validators.number_range(min=1, message="Capacity must be above 1")])
     submit = wtforms.SubmitField('Create Room')
+
 
 class GetCost(FlaskForm):
     cost = wtforms.DecimalField('Cost per night', validators=[validators.DataRequired()])

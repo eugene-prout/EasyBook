@@ -10,11 +10,11 @@
                 </div>
                 <div class="card-body">
                     <table class="table table-hover table-bordered">
-                            <th>Number
-                            <th>Capacity
-                        <tr>
-                            <td>{{ room.number }}
-                            <td> {{ room.capacity }}
+                        <th>Number
+                        <th>Capacity
+                            <tr>
+                                <td>{{ room.number }}
+                                <td> {{ room.capacity }}
                     </table>
                 </div>
                 <div class="card-footer text-muted">
@@ -24,11 +24,11 @@
                             {{ form.roomNumber.label }}
                             {{ form.roomNumber(class="form-control") }}
                             {% for error in form.roomNumber.errors %}
-                            <span style="color:red;">[Please enter room number to delete]</span>
+                                <span style="color:red;">[Please enter room number to delete]</span>
                             {% endfor %}
-                        {% if confirm == True %}
-                        <span style="color: red;">[Please enter room number to delete]</span>
-                        {% endif %}
+                            {% if confirm == True %}
+                                <span style="color: red;">[Please enter room number to delete]</span>
+                            {% endif %}
                         </div>
 
                         <div class="form-group">
@@ -40,6 +40,29 @@
 
 
 
+                </div>
+            </div>
+
+            <br>
+
+            <div class="card text-center">
+                <div class="card-header">
+                    Room {{ room.number }} Bookings
+                </div>
+                <div class="card-body">
+                    <table class="table table-hover table-bordered">
+                        <th>Ref. Number
+                        <th>Customer
+                        <th>Arrival Date
+                        <th>Departure date
+                            {% for book in room.bookings %}
+                                <tr>
+                                <td><a href="{{ url_for('booking', id=book.id) }}">{{ book.id }}</a>
+                                <td><a href="{{ url_for('customer', url_name=book.customer.url_name) }}">{{ book.customer.name }}</a>
+                                <td>{{ flipDate(book.start_date) }}
+                                <td>{{ flipDate(book.end_date) }}
+                            {% endfor %}
+                    </table>
                 </div>
             </div>
         </div>
