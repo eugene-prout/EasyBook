@@ -1,0 +1,144 @@
+{% extends "layout.html" %}
+
+{% block body %}
+    <div class="row justify-content-center" style="margin-top: 10px;">
+        <div class="col-10">
+            <div class="card text-center">
+
+                <div class="card-header">
+                    User Details
+                </div>
+                <div class="card-body">
+                    <form method="post" action="">
+                        {{ form.hidden_tag() }}
+                        <table class="table table-hover table-bordered">
+
+                            <tr>
+                                <td scope="row">Name</td>
+                                <td>{{ details[name] }}</td>
+                                <td>
+                                    <div class="form-group">
+                                        {{ form.name() }}
+                                    </div>
+                                    {% for error in form.name.errors %}
+                                        <span style="color: red;">[Please enter manager's name]</span>
+                                    {% endfor %}
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td scope="row">Business Name</td>
+                                <td>{{ details[bus_name] }}</td>
+                                <td>
+                                    <div class="form-group">
+                                        {{ form.bus_name() }}
+                                    </div>
+                                    {% for error in form.bus_name.errors %}
+                                        <span style="color: red;">[Please enter business name]</span>
+                                    {% endfor %}
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td scope="row">Street</td>
+                                <td>{{ details[street] }}</td>
+                                <td>
+                                    <div class="form-group">
+                                        {{ form.street() }}
+                                    </div>
+                                    {% for error in form.street.errors %}
+                                        <span style="color: red;">[Please enter user's street]</span>
+                                    {% endfor %}
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td scope="row">Village</td>
+                                <td>{{ details[village] }}</td>
+                                <td>
+                                    <div class="form-group">
+                                        {{ form.village() }}
+                                    </div>
+                                    {% for error in form.village.errors %}
+                                        <span style="color: red;">[Please enter user's village]</span>
+                                    {% endfor %}
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td scope="row">Town</td>
+                                <td>{{ details[maj_town] }}</td>
+                                <td>
+                                    <div class="form-group">
+                                        {{ form.maj_town() }}
+                                    </div>
+                                    {% for error in form.maj_town.errors %}
+                                        <span style="color: red;">[Please enter user's town]</span>
+                                    {% endfor %}
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td scope="row">County</td>
+                                <td>{{ details[county] }}</td>
+                                <td>
+                                    <div class="form-group">
+                                        {{ form.county() }}
+                                    </div>
+                                    {% for error in form.county.errors %}
+                                        <span style="color: red;">[Please enter user's town]</span>
+                                    {% endfor %}
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td scope="row">Postcode</td>
+                                <td>{{ details[postcode] }}</td>
+                                <td>
+                                    <div class="form-group">
+                                        {{ form.postcode() }}
+                                    </div>
+                                    {% for error in form.postcode.errors %}
+                                        <span style="color: red;">[Please enter user's postcode]</span>
+                                    {% endfor %}
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td scope="row">Telephone Number</td>
+                                <td>{{ details['telephone'] }}</td>
+                                <td>
+                                    <div class="form-group">
+                                        {{ form.telephone() }}
+                                    </div>
+                                    {% for error in form.telephone.errors %}
+                                        <span style="color: red;">[Please enter user's telephone number]</span>
+                                    {% endfor %}
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td scope="row">Email</td>
+                                <td>{{ details[email] }}</td>
+                                <td>
+                                    <div class="form-group">
+                                        {{ form.email() }}
+                                    </div>
+                                    {% for error in form.email.errors %}
+                                        <span style="color: red;">[Please enter user's email]</span>
+                                    {% endfor %}
+                                </td>
+                            </tr>
+                        </table>
+
+                        {{ form.submit(class="btn btn-success") }}
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+{% endblock %}

@@ -54,6 +54,7 @@
                 <div class="btn-group btn-group-lg" role="group" aria-label="...">
                     <button class="btn btn-outline-info mb-2" onclick="window.location='{{ url_for('booking', id=booking.id) }}'" >Back to booking overview</button>
         <button class="btn btn-success mb-2" onclick="printDiv('invoice')">Print Invoice</button>
+        <button class="btn btn-success mb-2" onclick="window.location='{{ url_for('invoice_out') }}'">Printed!</button>
                 </div>
 
         <hr>
@@ -70,7 +71,7 @@
                 <br>
                 Name: {{ booking.customer.name }}
                 <br>
-                Invoice for {{ booking.customer.name }}
+                Invoice reference: {{ inv_num }}
                 <br>
                 Arrival Date: {{ flipDate(  booking.start_date)}}
                 <br>

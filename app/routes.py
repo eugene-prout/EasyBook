@@ -1,12 +1,13 @@
 from flask import render_template, request, url_for, redirect
 from app import app, db
-from app.models import Customer, Room, Booking
+from app.models import Customer, Room, Booking, User
 from app.forms import NewCustomer, NewRoom, NewBooking, DeleteCustomer, DeleteRoom, DeleteBooking, ChangeBooking, \
-    GetCost, SelectCustomer, SelectRoom
+    GetCost, SelectCustomer, SelectRoom, UserDetails
 import datetime
 import calendar
+import json
 
-#TODO: add autoincrementing invoice numbers - pickle/shelve?
+#TODO: add page for user to customise details and save to json file
 
 
 @app.context_processor
@@ -204,7 +205,6 @@ def week_book():
 
     next_week = dates_of_week[6] + datetime.timedelta(days=1)
     previous = dates_of_week[0] - datetime.timedelta(days=1)
-
     return render_template('bookings_week.html', rooms=all_rooms, date_list=dates_of_week, prev=previous,
                            next=next_week)
 
@@ -230,6 +230,7 @@ def month_book():
     next_week = dates_of_month[num_days-1] + datetime.timedelta(days=1)
     previous = dates_of_month[0] - datetime.timedelta(days=1)
 
+    #return redirect(url_for('index'))
     return render_template('monthly_bookings.html', rooms=all_rooms, date_list=dates_of_month, prev=previous,
                            next=next_week)
 
@@ -239,7 +240,7 @@ def change_book(id):
     _booking = Booking.query.filter_by(id=id).first_or_404()
     format_strt = datetime.date.strftime(_booking.start_date, '%d-%m-%Y')
     format_end = datetime.date.strftime(_booking.end_date, '%d-%m-%Y')
-    form = ChangeBooking(request.form)
+    form = ChangeBooking(obj=_booking)
     form.customer.choices = [(c.id, c.name) for c in Customer.query.order_by('name')]
     form.room.choices = [(r.id, r.number) for r in Room.query.order_by('number')]
 
@@ -297,9 +298,43 @@ def new_invoice(id):
 
     if form.validate_on_submit():
         total = form.cost.data * _booking.length
-        return render_template('invoice.html', booking=_booking, cost=form.cost.data, total=total, date=datetime.datetime.today().date())
+        with open("storage.json", "r") as jsonFile:
+            number = json.load(jsonFile)['invoice_number']
+        return render_template('invoice.html', booking=_booking, cost=form.cost.data, total=total, date=datetime.datetime.today().date(), inv_num=number)
 
     return render_template('new_invoice.html', form=form, booking=_booking)
+
+
+@app.route('/invoice/out')
+def invoice_out():
+    with open("storage.json", "r") as jsonFile:
+        data = json.load(jsonFile)
+
+    int_num = int(data["invoice_number"])
+    int_num += 1
+    data["invoice_number"] = str(int_num)
+
+    with open("storage.json", "w") as jsonFile:
+        json.dump(data, jsonFile)
+
+    return redirect(url_for('all_bookings'))
+
+
+@app.route('/details/view', methods=["GET", "POST"])
+def view_details():
+    #_user = User.query.filter_by(id=1).first_or_404()
+
+    form = UserDetails()
+    details = {}
+    with open("storage.json", "r") as jsonFile:
+
+        details = json.load(jsonFile)
+
+    if form.validate_on_submit():
+        pass
+
+    print(details['telephone'])
+    return render_template('details.html', form=form, details=details)
 
 
 @app.route('/test')
