@@ -296,11 +296,16 @@ def new_invoice(id):
     _booking = Booking.query.filter_by(id=id).first_or_404()
     form = GetCost()
 
+    details = {}
+    with open("storage.json", "r") as jsonFile:
+
+        details = json.load(jsonFile)
+
     if form.validate_on_submit():
         total = form.cost.data * _booking.length
         with open("storage.json", "r") as jsonFile:
             number = json.load(jsonFile)['invoice_number']
-        return render_template('invoice.html', booking=_booking, cost=form.cost.data, total=total, date=datetime.datetime.today().date(), inv_num=number)
+        return render_template('invoice.html', booking=_booking, cost=form.cost.data, total=total, date=datetime.datetime.today().date(), inv_num=number,details=details)
 
     return render_template('new_invoice.html', form=form, booking=_booking)
 
@@ -331,9 +336,22 @@ def view_details():
         details = json.load(jsonFile)
 
     if form.validate_on_submit():
-        pass
+        details["name"] = form.name.data
+        details["bus_name"] = form.bus_name.data
+        details["house_name"] = form.house_name.data
+        details["street"] = form.street.data
+        details["village"] = form.village.data
+        details["maj_town"] = form.maj_town.data
+        details["county"] = form.county.data
+        details["postcode"] = form.postcode.data
+        details["telephone"] = form.telephone.data
+        details["email"] = form.email.data
 
-    print(details['telephone'])
+        with open("storage.json", "w") as jsonFile:
+            jsonFile.write(json.dumps(details))
+
+        return redirect(url_for("index"))
+
     return render_template('details.html', form=form, details=details)
 
 

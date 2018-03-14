@@ -60,18 +60,25 @@
         <hr>
         <div id="invoice">
             <p class="text-right display-2">Invoice</p>
-            <p class="text-left display-4"><b>Bryncoch Farm Camp Site</b></p>
-            <p class="text-left display-4">Llandyfan <br> Ammanford <br> Carmarthenshire <br> SA18 2TY</p>
+            <p class="text-left display-4"><b>{{ details["bus_name"] }}</b></p>
+            <p class="text-left display-5">
+                {{ details["house_name"] }}
+                {{ details["street"] }} <br>
+                {{ details["village"] }} <br>
+                {{ details["maj_town"] }} <br>
+                {{ details["county"] }} <br>
+                {{ details["postcode"] }} <br>
+                {{ details["telephone"] }} <br>
+            </p>
             <p class="text-right display-4">{{ flipDate(date) }}</p>
 
             <hr>
-            <h1 class="display-4">
-                <b>
-                    Customer details:</b>
+            <p class="display-5">
+                    Customer details:
                 <br>
                 Name: {{ booking.customer.name }}
                 <br>
-                Invoice reference: {{ inv_num }}
+                Invoice reference: {{ details["invoice_number"] }}
                 <br>
                 Arrival Date: {{ flipDate(  booking.start_date)}}
                 <br>
@@ -79,11 +86,11 @@
                 <br>
                 Room: {{ booking.room.number }}
 
-            </h1>
+            </p>
 
             <br>
             <hr>
-            <h2 class="display-4">
+            <p class="display-3">
                 <table class="table table-bordered table-primary">
                     <thead>
                     <tr>
@@ -105,8 +112,8 @@
                 <b>Total to pay: £{{ total }}</b>
                 <br>
                 <hr>
-            </h2>
-            <h3 class="display-4">
+            </p>
+            <p class="display-3">
 
                 <br>
                 <br>
@@ -114,7 +121,7 @@
                     -----------------
                     <br>Manager
                 </div>
-            </h3>
+            </p>
         </div>
 
 

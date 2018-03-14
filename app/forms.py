@@ -103,6 +103,7 @@ class GetCost(FlaskForm):
 class UserDetails(FlaskForm):
     name = wtforms.StringField("Name/Number", validators=[validators.DataRequired()])
     bus_name = wtforms.StringField("Business Name")
+    house_name = wtforms.StringField("House name/number")
     street = wtforms.StringField("Street")
     village = wtforms.StringField("Village")
     maj_town = wtforms.StringField("Town/city")

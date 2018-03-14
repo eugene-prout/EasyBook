@@ -1,10 +1,1 @@
-{"invoice_number": 1,
-"name":"Not set",
-"bus_name":"Not set",
-"house_name":"Not set",
-"street":"Not set",
-"village":"Not set",
-"maj_town":"Not set",
-"county":"Not set",
-"postcode":"Not set",
-"telephone":"Not set"}
+{"invoice_number": "2", "name": "Eugene Prout", "bus_name": "Prout Hospitality", "house_name": "38", "street": "Parkland Avenue", "village": "Llandybie", "maj_town": "Ammanford", "county": "Carmarthenshire", "postcode": "SA18 7GH", "telephone": "0123456789", "email": "eugene.prout1@gmail.com"}

@@ -15,7 +15,7 @@
 
                             <tr>
                                 <td scope="row">Name</td>
-                                <td>{{ details[name] }}</td>
+                                <td>{{ details['name'] }}</td>
                                 <td>
                                     <div class="form-group">
                                         {{ form.name() }}
@@ -28,7 +28,7 @@
 
                             <tr>
                                 <td scope="row">Business Name</td>
-                                <td>{{ details[bus_name] }}</td>
+                                <td>{{ details['bus_name'] }}</td>
                                 <td>
                                     <div class="form-group">
                                         {{ form.bus_name() }}
@@ -40,8 +40,21 @@
                             </tr>
 
                             <tr>
+                                <td scope="row">House name/number</td>
+                                <td>{{ details['house_name'] }}</td>
+                                <td>
+                                    <div class="form-group">
+                                        {{ form.house_name() }}
+                                    </div>
+                                    {% for error in form.house_name.errors %}
+                                        <span style="color: red;">[Please enter name/number]</span>
+                                    {% endfor %}
+                                </td>
+                            </tr>
+
+                            <tr>
                                 <td scope="row">Street</td>
-                                <td>{{ details[street] }}</td>
+                                <td>{{ details['street'] }}</td>
                                 <td>
                                     <div class="form-group">
                                         {{ form.street() }}
@@ -54,7 +67,7 @@
 
                             <tr>
                                 <td scope="row">Village</td>
-                                <td>{{ details[village] }}</td>
+                                <td>{{ details['village'] }}</td>
                                 <td>
                                     <div class="form-group">
                                         {{ form.village() }}
@@ -67,7 +80,7 @@
 
                             <tr>
                                 <td scope="row">Town</td>
-                                <td>{{ details[maj_town] }}</td>
+                                <td>{{ details['maj_town'] }}</td>
                                 <td>
                                     <div class="form-group">
                                         {{ form.maj_town() }}
@@ -80,7 +93,7 @@
 
                             <tr>
                                 <td scope="row">County</td>
-                                <td>{{ details[county] }}</td>
+                                <td>{{ details['county'] }}</td>
                                 <td>
                                     <div class="form-group">
                                         {{ form.county() }}
@@ -93,7 +106,7 @@
 
                             <tr>
                                 <td scope="row">Postcode</td>
-                                <td>{{ details[postcode] }}</td>
+                                <td>{{ details['postcode'] }}</td>
                                 <td>
                                     <div class="form-group">
                                         {{ form.postcode() }}
@@ -119,7 +132,7 @@
 
                             <tr>
                                 <td scope="row">Email</td>
-                                <td>{{ details[email] }}</td>
+                                <td>{{ details['email'] }}</td>
                                 <td>
                                     <div class="form-group">
                                         {{ form.email() }}
