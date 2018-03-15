@@ -1,6 +1,5 @@
 from datetime import datetime
 from app import db
-from functools import lru_cache
 
 
 class Customer(db.Model):
@@ -53,6 +52,12 @@ class Booking(db.Model):
     start_date = db.Column(db.Date, index=True)
     end_date = db.Column(db.Date, index=True)
     length = db.Column(db.Integer, index=True)
+    historic = db.Column(db.Boolean)
+
+    def is_historic(self):
+        if datetime.today().date() > self.end_date: # If booking was in the past:
+            self.historic = True # Set historic flag to True
+            return True # Return true
 
     def __repr__(self):
         return '<Booking Room: {}, Customer: {}, Start: {}, End: {}>'.format(self.room_id, self.customer_id,

@@ -21,6 +21,7 @@ def utility_processor():
 @app.route('/')
 @app.route('/index')
 def index():
+
     return render_template('index.html', title='Home', customers=Customer.query.all())
 
 
@@ -88,6 +89,17 @@ def customer(url_name):
     _customer = Customer.query.filter_by(url_name=url_name).first_or_404()
     form = DeleteCustomer()
 
+    current_bookings = []
+    historic_bookings = []
+
+    for b in _customer.bookings:
+        if b.historic: # If booking historic is True
+            historic_bookings.append(b)
+        elif b.is_historic():
+            historic_bookings.append(b)
+        else:
+            current_bookings.append(b)
+
     if form.validate_on_submit():
         if form.nameCheck.data == _customer.name:
 
@@ -99,9 +111,11 @@ def customer(url_name):
 
             return redirect(url_for('all_customers'))
         else:
-            return render_template('customer.html', customer=_customer, form=form, confirm=True)
+            return render_template('customer.html', customer=_customer, historic_bookings=historic_bookings,
+                                   current_bookings=current_bookings, form=form, confirm=True)
 
-    return render_template('customer.html', customer=_customer, form=form, confirm=False)
+    return render_template('customer.html', customer=_customer, historic_bookings=historic_bookings,
+                           current_bookings=current_bookings, form=form, confirm=False)
 
 
 @app.route('/customer/search', methods=['GET', 'POST'])
@@ -157,7 +171,7 @@ def new_booking():
                 return render_template('new_booking.html', form=form, error="This booking overlaps with another.")
 
         _booking = Booking(customer_id=form.customer.data, room_id=form.room.data, start_date=start_date,
-                           end_date=end_date, length=length)
+                           end_date=end_date, length=length, historic=False)
 
         db.session.add(_booking)
         db.session.flush()
