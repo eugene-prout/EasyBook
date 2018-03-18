@@ -55,9 +55,30 @@
                         <th>Room
                         <th>Arrival Date
                         <th>Departure date
-                            {% for book in customer.bookings %}
+                            {% for book in current_bookings %}
                                 <tr>
                                 <td><a href="{{ url_for('booking', id=book.id) }}">{{ book.id }}</a>
+                                <td> {{ book.room.number }}
+                                <td>{{ flipDate(book.start_date) }}
+                                <td>{{ flipDate(book.end_date) }}
+                            {% endfor %}
+                    </table>
+                </div>
+            </div>
+
+                    <div class="card text-center">
+                <div class="card-header">
+                    {{ customer.name }}'s Past Bookings
+                </div>
+                <div class="card-body">
+                    <table class="table table-hover table-bordered">
+                        <th>Ref. Number
+                        <th>Room
+                        <th>Arrival Date
+                        <th>Departure date
+                            {% for book in historic_bookings %}
+                                <tr>
+                                <td>{{ book.id }}
                                 <td> {{ book.room.number }}
                                 <td>{{ flipDate(book.start_date) }}
                                 <td>{{ flipDate(book.end_date) }}

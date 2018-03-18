@@ -165,6 +165,9 @@ def new_booking():
 
         dates_of_booking = [start_date + datetime.timedelta(x) for x in range(length)]
 
+        if end_date < datetime.datetime.today().date():
+            return render_template('new_booking.html', form=form, error="Bookings cannot be in the past.")
+
         for date in dates_of_booking:
             if _room.check_booked(date):
                 #print('Overlapped bookings')
@@ -319,8 +322,8 @@ def new_invoice(id):
         total = form.cost.data * _booking.length
         with open("storage.json", "r") as jsonFile:
             number = json.load(jsonFile)['invoice_number']
-        return render_template('invoice.html', booking=_booking, cost=form.cost.data, total=total, date=datetime.datetime.today().date(), inv_num=number,details=details)
-
+        return render_template('invoice.html', booking=_booking, cost=form.cost.data, total=total,
+                               date=datetime.datetime.today().date(), inv_num=number, details=details)
     return render_template('new_invoice.html', form=form, booking=_booking)
 
 

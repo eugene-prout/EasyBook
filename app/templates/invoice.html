@@ -1,143 +1,482 @@
-<!doctype html>
-
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-<!-- Bootstrap CSS -->
+<html xmlns:v="urn:schemas-microsoft-com:vml"
+xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:dt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882"
+xmlns="http://www.w3.org/TR/REC-html40">
 
 <head>
-    {#    Jquery#}
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-
-    {#    Bootstrap #}
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
-    {# Moment #}
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.js"></script>
-
-    {#    Datepicker#}
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.js"></script>
-
-    {#    Select (dropdown) #}
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/0.1.0-beta.10/select2-bootstrap.css" />
-
-    {#    Datepicker#}
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.css"/>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
-
-
-    <style>
-        .error-template {padding: 40px 15px;text-align: center;}
-        .error-actions {margin-top:15px;margin-bottom:15px;}
-        .error-actions .btn { margin-right:10px; }
-        th, td {  white-space: nowrap;  }
-        .first-col {  position: absolute;  width: 5em;  margin-left: -5em;  }
-        .center_div{  margin: 0 auto;  width:80% /* value of your choice which suits your alignment */  }
-    </style>
-
-    <title>Easybook</title>
-
+<meta http-equiv=Content-Type content="text/html; charset=utf-8">
+<link rel=File-List href="invoice_files/filelist.xml">
+<!--[if !mso]>
+<style>
+v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+b\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style>
+<![endif]-->
+<title>Page Title</title>
+<style>
+<!--
+ /* Font Definitions */
+@font-face
+	{font-family:"Trebuchet MS";
+	panose-1:2 11 6 3 2 2 2 2 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+ /* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin-right:0pt;
+	text-indent:0pt;
+	margin-top:0pt;
+	margin-bottom:6.0pt;
+	line-height:119%;
+	text-align:left;
+	font-family:Calibri;
+	font-size:10.0pt;
+	color:black;}
+ol
+	{margin-top:0in;
+	margin-bottom:0in;
+	margin-left:-2197in;}
+ul
+	{margin-top:0in;
+	margin-bottom:0in;
+	margin-left:-2197in;}
+@page
+	{size:8.-2019in 11.2232in;}
+-->
+</style>
+<!--[if gte mso 9]><xml>
+ <o:shapedefaults v:ext="edit" spidmax="1232902" fillcolor="#5b9bd5 [1]"
+  strokecolor="black [0]">
+  <v:fill color="#5b9bd5 [1]" color2="white [7]"/>
+  <v:stroke color="black [0]" color2="white [7]" weight="2pt">
+   <o:left v:ext="view" color="black [0]" color2="white [7]"/>
+   <o:top v:ext="view" color="black [0]" color2="white [7]"/>
+   <o:right v:ext="view" color="black [0]" color2="white [7]"/>
+   <o:bottom v:ext="view" color="black [0]" color2="white [7]"/>
+   <o:column v:ext="view" color="black [0]" color2="white [7]"/>
+  </v:stroke>
+  <v:shadow color="black [0]"/>
+  <o:extrusion v:ext="view" backdepth="0" viewpoint="0,0" viewpointorigin="0,0"/>
+  <v:textbox inset="2.88pt,2.88pt,2.88pt,2.88pt"/>
+  <o:colormru v:ext="edit" colors="#a6a6a6,#d9d9d9"/>
+  <o:colormenu v:ext="edit" fillcolor="none" strokecolor="none" shadowcolor="#ffc000 [4]"/>
+ </o:shapedefaults><o:shapelayout v:ext="edit">
+  <o:idmap v:ext="edit" data="1"/>
+ </o:shapelayout></xml><![endif]-->
 </head>
 
+<body style='margin:0'>
+
+<div style='position:absolute;width:8.-1863in;height:5.0378in'>
+<!--[if gte vml 1]><v:rect id="_x0000_s1025" style='position:absolute;left:325.1pt;
+ top:36pt;width:234.17pt;height:95.3pt;flip:x;z-index:1;
+ mso-wrap-distance-left:2.88pt;mso-wrap-distance-top:2.88pt;
+ mso-wrap-distance-right:2.88pt;mso-wrap-distance-bottom:2.88pt' filled="f"
+ fillcolor="#00b050" stroked="f" strokecolor="#a6a6a6 [7 darken(166)]"
+ strokeweight="2pt" o:cliptowrap="t">
+ <v:fill color2="white [7]"/>
+ <v:stroke color2="white [7]">
+  <o:left v:ext="view" color="black [0]" color2="white [7]"/>
+  <o:top v:ext="view" color="black [0]" color2="white [7]"/>
+  <o:right v:ext="view" color="black [0]" color2="white [7]"/>
+  <o:bottom v:ext="view" color="black [0]" color2="white [7]"/>
+  <o:column v:ext="view" color="black [0]" color2="white [7]"/>
+ </v:stroke>
+ <v:shadow color="black [0]"/>
+ <o:extrusion v:ext="view" backdepth="0" viewpoint="0,0" viewpointorigin="0,0"/>
+ <v:textbox style='mso-column-margin:2mm' inset="2.88pt,2.88pt,2.88pt,2.88pt"/>
+</v:rect><![endif]--><![if !vml]><span style='position:absolute;z-index:1;
+left:433px;top:48px;width:313px;height:127px'>
+
+<table cellpadding=0 cellspacing=0>
+ <tr>
+  <td width=313 height=127 style='vertical-align:top'><![endif]>
+  <div v:shape="_x0000_s1025" style='padding:2.88pt 2.88pt 2.88pt 2.88pt'
+  class=shape>
+  <p class=MsoNormal style='text-align:right;margin-bottom:0pt;text-align:right'><span
+  lang=en-GB style='font-size:36.0pt;line-height:119%;font-family:"Trebuchet MS";
+  color:#D9D9D9;language:en-GB'>INVOICE</span></p>
+  </div>
+  <![if !vml]></td>
+ </tr>
+</table>
+
+</span><![endif]><!--[if gte vml 1]><v:rect id="_x0000_s1027" style='position:absolute;
+ left:36pt;top:36pt;width:352.24pt;height:36.59pt;flip:x;z-index:2;
+ mso-wrap-distance-left:2.88pt;mso-wrap-distance-top:2.88pt;
+ mso-wrap-distance-right:2.88pt;mso-wrap-distance-bottom:2.88pt' filled="f"
+ fillcolor="#00b050" stroked="f" strokecolor="#a6a6a6 [7 darken(166)]"
+ strokeweight="2pt" o:cliptowrap="t">
+ <v:fill color2="white [7]"/>
+ <v:stroke color2="white [7]">
+  <o:left v:ext="view" color="black [0]" color2="white [7]"/>
+  <o:top v:ext="view" color="black [0]" color2="white [7]"/>
+  <o:right v:ext="view" color="black [0]" color2="white [7]"/>
+  <o:bottom v:ext="view" color="black [0]" color2="white [7]"/>
+  <o:column v:ext="view" color="black [0]" color2="white [7]"/>
+ </v:stroke>
+ <v:shadow color="black [0]"/>
+ <o:extrusion v:ext="view" backdepth="0" viewpoint="0,0" viewpointorigin="0,0"/>
+ <v:textbox style='mso-column-margin:2mm' inset="2.88pt,2.88pt,2.88pt,2.88pt"/>
+</v:rect><![endif]--><![if !vml]><span style='position:absolute;z-index:2;
+left:48px;top:48px;width:470px;height:49px'>
+
+<table cellpadding=0 cellspacing=0>
+ <tr>
+  <td width=470 height=49 style='vertical-align:top'><![endif]>
+  <div v:shape="_x0000_s1027" style='padding:2.88pt 2.88pt 2.88pt 2.88pt'
+  class=shape>
+  <p class=MsoNormal style='margin-bottom:0pt'><span lang=en-GB
+  style='font-size:28.0pt;line-height:119%;font-family:"Trebuchet MS";
+  language:en-GB'>{{ details["bus_name"] }}</span></p>
+  </div>
+  <![if !vml]></td>
+ </tr>
+</table>
+
+</span><![endif]><!--[if gte vml 1]><v:shapetype id="_x0000_t202" coordsize="21600,21600"
+ o:spt="202" path="m,l,21600r21600,l21600,xe">
+ <v:stroke joinstyle="miter"/>
+ <v:path gradientshapeok="t" o:connecttype="rect"/>
+</v:shapetype><v:shape id="_x0000_s1028" type="#_x0000_t202" style='position:absolute;
+ left:36pt;top:84.78pt;width:206.03pt;height:78.64pt;z-index:3;
+ mso-wrap-distance-left:2.88pt;mso-wrap-distance-top:2.88pt;
+ mso-wrap-distance-right:2.88pt;mso-wrap-distance-bottom:2.88pt' filled="f"
+ fillcolor="#5b9bd5 [1]" stroked="f" strokecolor="black [0]" strokeweight="2pt"
+ o:cliptowrap="t">
+ <v:fill color2="white [7]"/>
+ <v:stroke color2="white [7]">
+  <o:left v:ext="view" color="black [0]" color2="white [7]"/>
+  <o:top v:ext="view" color="black [0]" color2="white [7]"/>
+  <o:right v:ext="view" color="black [0]" color2="white [7]"/>
+  <o:bottom v:ext="view" color="black [0]" color2="white [7]"/>
+  <o:column v:ext="view" color="black [0]" color2="white [7]"/>
+ </v:stroke>
+ <v:shadow color="black [0]"/>
+ <o:extrusion v:ext="view" backdepth="0" viewpoint="0,0" viewpointorigin="0,0"/>
+ <v:textbox style='mso-column-margin:2mm' inset="2.88pt,2.88pt,2.88pt,2.88pt"/>
+</v:shape><![endif]--><![if !vml]><span style='position:absolute;z-index:3;
+left:48px;top:113px;width:275px;height:105px'>
+
+<table cellpadding=0 cellspacing=0>
+ <tr>
+  <td width=275 height=105 style='vertical-align:top'><![endif]>
+  <div v:shape="_x0000_s1028" style='padding:2.88pt 2.88pt 2.88pt 2.88pt'
+  class=shape>
+  <p class=MsoNormal style='margin-bottom:1.0pt'><span lang=en-GB
+  style='font-size:8.0pt;font-family:"Trebuchet MS";language:en-GB'>{{ details["bus_name"] }}</span></p>
+  <p class=MsoNormal style='margin-bottom:1.0pt'><span lang=en-GB
+  style='font-size:8.0pt;font-family:"Trebuchet MS";language:en-GB'>{{ details["street"] }}&nbsp;</span></p>
+  <p class=MsoNormal style='margin-bottom:1.0pt'><span lang=en-GB
+  style='font-size:8.0pt;font-family:"Trebuchet MS";language:en-GB'>{{ details["village"] }}&nbsp;</span></p>
+  <p class=MsoNormal style='margin-bottom:1.0pt'><span lang=en-GB
+  style='font-size:8.0pt;font-family:"Trebuchet MS";language:en-GB'>{{ details["maj_town"] }}&nbsp;</span></p>
+  <p class=MsoNormal style='margin-bottom:1.0pt'><span lang=en-GB
+  style='font-size:8.0pt;font-family:"Trebuchet MS";language:en-GB'>{{ details["county"] }}&nbsp;</span></p>
+  <p class=MsoNormal style='margin-bottom:1.0pt'><span lang=en-GB
+  style='font-size:8.0pt;font-family:"Trebuchet MS";language:en-GB'>{{ details["postcode"] }}</span></p>
+  <p class=MsoNormal style='margin-bottom:1.0pt'><span lang=en-GB
+  style='font-size:8.0pt;font-family:"Trebuchet MS";language:en-GB'>{{ details["telephone"] }}&nbsp;</span></p>
+  <p class=MsoNormal style='margin-bottom:1.0pt'><span lang=en-GB
+  style='font-size:8.0pt;font-family:"Trebuchet MS";language:en-GB'>{{ details["email"] }}&nbsp;</span></p>
+  </div>
+  <![if !vml]></td>
+ </tr>
+</table>
+
+</span><![endif]><!--[if gte vml 1]><v:shape id="_x0000_s1031" type="#_x0000_t202"
+ style='position:absolute;left:353.24pt;top:84.78pt;width:206.03pt;height:78.64pt;
+ z-index:4;mso-wrap-distance-left:2.88pt;mso-wrap-distance-top:2.88pt;
+ mso-wrap-distance-right:2.88pt;mso-wrap-distance-bottom:2.88pt' filled="f"
+ fillcolor="#5b9bd5 [1]" stroked="f" strokecolor="black [0]" strokeweight="2pt"
+ o:cliptowrap="t">
+ <v:fill color2="white [7]"/>
+ <v:stroke color2="white [7]">
+  <o:left v:ext="view" color="black [0]" color2="white [7]"/>
+  <o:top v:ext="view" color="black [0]" color2="white [7]"/>
+  <o:right v:ext="view" color="black [0]" color2="white [7]"/>
+  <o:bottom v:ext="view" color="black [0]" color2="white [7]"/>
+  <o:column v:ext="view" color="black [0]" color2="white [7]"/>
+ </v:stroke>
+ <v:shadow color="black [0]"/>
+ <o:extrusion v:ext="view" backdepth="0" viewpoint="0,0" viewpointorigin="0,0"/>
+ <v:textbox style='mso-column-margin:2mm' inset="2.88pt,2.88pt,2.88pt,2.88pt"/>
+</v:shape><![endif]--><![if !vml]><span style='position:absolute;z-index:4;
+left:471px;top:113px;width:275px;height:105px'>
+
+<table cellpadding=0 cellspacing=0>
+ <tr>
+  <td width=275 height=105 style='vertical-align:top'><![endif]>
+  <div v:shape="_x0000_s1031" style='padding:2.88pt 2.88pt 2.88pt 2.88pt'
+  class=shape>
+  <p class=MsoNormal><span lang=en-GB style='font-size:8.0pt;line-height:119%;
+  font-family:"Trebuchet MS";font-weight:bold;language:en-GB'>Invoice No.                      </span><span
+  lang=en-GB style='font-size:8.0pt;line-height:119%;font-family:"Trebuchet MS";
+  language:en-GB'>{{ details["invoice_number"] }}&nbsp; </span></p>
+  <p class=MsoNormal><span lang=en-GB style='font-size:8.0pt;line-height:119%;
+  font-family:"Trebuchet MS";font-weight:bold;language:en-GB'>Date                                  </span><span
+  lang=en-GB style='font-size:8.0pt;line-height:119%;font-family:"Trebuchet MS";
+  language:en-GB'>{{ flipDate(date) }}</span></p>
+  <p class=MsoNormal><span lang=en-GB style='font-size:8.0pt;line-height:119%;
+  font-family:"Trebuchet MS";font-weight:bold;language:en-GB'>Customer Name             </span><span
+  lang=en-GB style='font-size:8.0pt;line-height:119%;font-family:"Trebuchet MS";
+  language:en-GB'>{{ booking.customer.name }}&nbsp; </span></p>
+  </div>
+  <![if !vml]></td>
+ </tr>
+</table>
+
+</span><![endif]><!--[if gte vml 1]><v:rect id="_x0000_s1034" style='position:absolute;
+ left:36pt;top:427.89pt;width:523.27pt;height:0;z-index:6;
+ mso-wrap-distance-left:2.88pt;mso-wrap-distance-top:2.88pt;
+ mso-wrap-distance-right:2.88pt;mso-wrap-distance-bottom:2.88pt' fillcolor="#5b9bd5 [1]"
+ strokecolor="black [0]" strokeweight="2pt" o:cliptowrap="t">
+ <v:fill color2="white [7]"/>
+ <v:stroke color2="white [7]">
+  <o:left v:ext="view" color="black [0]" color2="white [7]"/>
+  <o:top v:ext="view" color="black [0]" color2="white [7]"/>
+  <o:right v:ext="view" color="black [0]" color2="white [7]"/>
+  <o:bottom v:ext="view" color="black [0]" color2="white [7]"/>
+  <o:column v:ext="view" color="black [0]" color2="white [7]"/>
+ </v:stroke>
+ <v:shadow color="black [0]"/>
+ <o:extrusion v:ext="view" backdepth="0" viewpoint="0,0" viewpointorigin="0,0"/>
+ <v:textbox inset="2.88pt,2.88pt,2.88pt,2.88pt"/>
+</v:rect><![endif]--><![if !vml]><span style='position:absolute;z-index:6;
+left:35px;top:567px;width:724px;height:7px'><img width=724 height=7
+src="invoice_files/image306.png" v:shapes="_x0000_s1034"></span><![endif]><!--[if gte vml 1]><v:shape
+ id="_x0000_s1035" type="#_x0000_t202" style='position:absolute;left:36pt;
+ top:386.31pt;width:176.6pt;height:41.58pt;z-index:7;mso-wrap-distance-left:2.88pt;
+ mso-wrap-distance-top:2.88pt;mso-wrap-distance-right:2.88pt;
+ mso-wrap-distance-bottom:2.88pt' filled="f" fillcolor="#5b9bd5 [1]" stroked="f"
+ strokecolor="black [0]" strokeweight="2pt" o:cliptowrap="t">
+ <v:fill color2="white [7]"/>
+ <v:stroke color2="white [7]">
+  <o:left v:ext="view" color="black [0]" color2="white [7]"/>
+  <o:top v:ext="view" color="black [0]" color2="white [7]"/>
+  <o:right v:ext="view" color="black [0]" color2="white [7]"/>
+  <o:bottom v:ext="view" color="black [0]" color2="white [7]"/>
+  <o:column v:ext="view" color="black [0]" color2="white [7]"/>
+ </v:stroke>
+ <v:shadow color="black [0]"/>
+ <o:extrusion v:ext="view" backdepth="0" viewpoint="0,0" viewpointorigin="0,0"/>
+ <v:textbox style='mso-column-margin:2mm' inset="2.88pt,2.88pt,2.88pt,2.88pt"/>
+</v:shape><![endif]--><![if !vml]><span style='position:absolute;z-index:7;
+left:48px;top:515px;width:235px;height:56px'>
+
+<table cellpadding=0 cellspacing=0>
+ <tr>
+  <td width=235 height=56 valign=bottom style='vertical-align:top'><![endif]>
+  <div v:shape="_x0000_s1035" style='padding:5.37pt 2.88pt 2.88pt 2.88pt'
+  class=shape>
+  <p class=MsoNormal><span lang=en-GB style='font-size:6.0pt;line-height:119%;
+  font-family:Calibri;language:en-GB'>______________________________________</span></p>
+  <p class=MsoNormal style='margin-bottom:0pt'><span lang=en-GB
+  style='language:en-GB'>Manager</span></p>
+  </div>
+  <![if !vml]></td>
+ </tr>
+</table>
+
+</span><![endif]><!--[if gte vml 1]><![if mso | ie]><v:shapetype id="_x0000_t201"
+ coordsize="21600,21600" o:spt="201" path="m,l,21600r21600,l21600,xe">
+ <v:stroke joinstyle="miter"/>
+ <v:path shadowok="f" o:extrusionok="f" strokeok="f" fillok="f" o:connecttype="rect"/>
+ <o:lock v:ext="edit" shapetype="t"/>
+</v:shapetype><v:shape id="_x0000_s1032" type="#_x0000_t201" style='position:absolute;
+ left:36pt;top:163.42pt;width:523.27pt;height:172.63pt;z-index:5;
+ mso-wrap-distance-left:2.88pt;mso-wrap-distance-top:2.88pt;
+ mso-wrap-distance-right:2.88pt;mso-wrap-distance-bottom:2.88pt' stroked="f"
+ strokecolor="black [0]" strokeweight="2pt" o:cliptowrap="t">
+ <v:stroke color2="white [7]">
+  <o:left v:ext="view" color="black [0]" color2="white [7]" weight="0"/>
+  <o:top v:ext="view" color="black [0]" color2="white [7]" weight="0"/>
+  <o:right v:ext="view" color="black [0]" color2="white [7]" weight="0"/>
+  <o:bottom v:ext="view" color="black [0]" color2="white [7]" weight="0"/>
+  <o:column v:ext="view" color="black [0]" color2="white [7]"/>
+ </v:stroke>
+ <v:shadow color="black [0]"/>
+ <v:textbox inset="0,0,0,0">
+ </v:textbox>
+</v:shape><![endif]><![endif]-->
+
+<table v:shapes="_x0000_s1032" cellpadding=0 cellspacing=0 width=698
+ height=230 border=0 dir=ltr style='width:523.27pt;height:172.63pt;border-collapse:
+ collapse;position:absolute;top:163.42pt;left:36.0pt;z-index:5'>
+ <tr>
+  <td width=116 height=58 valign=Top bgcolor="#D9D9D9" style='width:87.2125pt;
+  height:43.8809pt;padding-left:2.88pt;padding-right:2.88pt;padding-top:2.88pt;
+  padding-bottom:2.88pt;background:#D9D9D9;border:solid white 1.0pt'>
+  <p class=MsoNormal><span lang=en-GB style='language:en-GB'>Arrival Date</span></p>
+  </td>
+  <td width=117 height=58 valign=Top bgcolor="#D9D9D9" style='width:87.2125pt;
+  height:43.8809pt;padding-left:2.88pt;padding-right:2.88pt;padding-top:2.88pt;
+  padding-bottom:2.88pt;background:#D9D9D9;border:solid white 1.0pt'>
+  <p class=MsoNormal><span lang=en-GB style='language:en-GB'>{{ flipDate( booking.start_date)}}&nbsp; </span></p>
+  </td>
+  <td width=116 height=58 valign=Top bgcolor="#D9D9D9" style='width:87.2125pt;
+  height:43.8809pt;padding-left:2.88pt;padding-right:2.88pt;padding-top:2.88pt;
+  padding-bottom:2.88pt;background:#D9D9D9;border:solid white 1.0pt'>
+  <p class=MsoNormal><span lang=en-GB style='language:en-GB'>Room No.</span></p>
+  </td>
+  <td width=116 height=58 valign=Top bgcolor="#D9D9D9" style='width:87.2125pt;
+  height:43.8809pt;padding-left:2.88pt;padding-right:2.88pt;padding-top:2.88pt;
+  padding-bottom:2.88pt;background:#D9D9D9;border:solid white 1.0pt'>
+  <p class=MsoNormal><span lang=en-GB style='language:en-GB'>{{ booking.room.number }}</span></p>
+  </td>
+  <td width=116 height=58 valign=Top bgcolor="#D9D9D9" style='width:87.2125pt;
+  height:43.8809pt;padding-left:2.88pt;padding-right:2.88pt;padding-top:2.88pt;
+  padding-bottom:2.88pt;background:#D9D9D9;border:solid white 1.0pt'>
+  <p class=MsoNormal><span lang=en-GB style='language:en-GB'>Bill to</span></p>
+  </td>
+  <td width=117 height=58 valign=Top bgcolor="#D9D9D9" style='width:87.2125pt;
+  height:43.8809pt;padding-left:2.88pt;padding-right:2.88pt;padding-top:2.88pt;
+  padding-bottom:2.88pt;background:#D9D9D9;border:solid white 1.0pt'>
+  <p class=MsoNormal style='margin-bottom:14.0pt'><span lang=en-GB
+  style='language:en-GB'>{{ booking.customer.name }}&nbsp; </span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=116 height=64 valign=Top bgcolor="#ECECEC" style='width:87.2125pt;
+  height:48.0196pt;padding-left:2.88pt;padding-right:2.88pt;padding-top:2.88pt;
+  padding-bottom:2.88pt;background:#ECECEC;border:solid white 1.0pt'>
+  <p class=MsoNormal><span lang=en-GB style='language:en-GB'>Departure Date</span></p>
+  </td>
+  <td width=117 height=64 valign=Top bgcolor="#ECECEC" style='width:87.2125pt;
+  height:48.0196pt;padding-left:2.88pt;padding-right:2.88pt;padding-top:2.88pt;
+  padding-bottom:2.88pt;background:#ECECEC;border:solid white 1.0pt'>
+  <p class=MsoNormal><span lang=en-GB style='language:en-GB'>{{ flipDate(booking.end_date)}}&nbsp; </span></p>
+  </td>
+  <td width=116 height=64 valign=Top bgcolor="#ECECEC" style='width:87.2125pt;
+  height:48.0196pt;padding-left:2.88pt;padding-right:2.88pt;padding-top:2.88pt;
+  padding-bottom:2.88pt;background:#ECECEC;border:solid white 1.0pt'>
+  <p class=MsoNormal><span lang=en-GB style='language:en-GB'>&nbsp;</span></p>
+  </td>
+  <td width=116 height=64 valign=Top bgcolor="#ECECEC" style='width:87.2125pt;
+  height:48.0196pt;padding-left:2.88pt;padding-right:2.88pt;padding-top:2.88pt;
+  padding-bottom:2.88pt;background:#ECECEC;border:solid white 1.0pt'>
+  <p class=MsoNormal><span lang=en-GB style='language:en-GB'>&nbsp;</span></p>
+  </td>
+  <td width=116 height=64 valign=Top bgcolor="#ECECEC" style='width:87.2125pt;
+  height:48.0196pt;padding-left:2.88pt;padding-right:2.88pt;padding-top:2.88pt;
+  padding-bottom:2.88pt;background:#ECECEC;border:solid white 1.0pt'>
+  <p class=MsoNormal><span lang=en-GB style='language:en-GB'>&nbsp;</span></p>
+  </td>
+  <td width=117 height=64 valign=Top bgcolor="#ECECEC" style='width:87.2125pt;
+  height:48.0196pt;padding-left:2.88pt;padding-right:2.88pt;padding-top:2.88pt;
+  padding-bottom:2.88pt;background:#ECECEC;border:solid white 1.0pt'>
+  <p class=MsoNormal><span lang=en-GB style='language:en-GB'>Address</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=116 height=32 valign=Top bgcolor="#D9D9D9" style='width:87.2125pt;
+  height:23.3676pt;padding-left:2.88pt;padding-right:2.88pt;padding-top:2.88pt;
+  padding-bottom:2.88pt;background:#D9D9D9;border:solid white 1.0pt'>
+  <p class=MsoNormal><span lang=en-GB style='language:en-GB'>Days</span></p>
+  </td>
+  <td width=117 height=32 valign=Top bgcolor="#D9D9D9" style='width:87.2125pt;
+  height:23.3676pt;padding-left:2.88pt;padding-right:2.88pt;padding-top:2.88pt;
+  padding-bottom:2.88pt;background:#D9D9D9;border:solid white 1.0pt'>
+  <p class=MsoNormal><span lang=en-GB style='language:en-GB'>{{ booking.length }} </span></p>
+  </td>
+  <td width=116 height=32 valign=Top bgcolor="#D9D9D9" style='width:87.2125pt;
+  height:23.3676pt;padding-left:2.88pt;padding-right:2.88pt;padding-top:2.88pt;
+  padding-bottom:2.88pt;background:#D9D9D9;border:solid white 1.0pt'>
+  <p class=MsoNormal><span lang=en-GB style='language:en-GB'>&nbsp;</span></p>
+  </td>
+  <td width=116 height=32 valign=Top bgcolor="#D9D9D9" style='width:87.2125pt;
+  height:23.3676pt;padding-left:2.88pt;padding-right:2.88pt;padding-top:2.88pt;
+  padding-bottom:2.88pt;background:#D9D9D9;border:solid white 1.0pt'>
+  <p class=MsoNormal><span lang=en-GB style='language:en-GB'>&nbsp;</span></p>
+  </td>
+  <td width=116 height=32 valign=Top bgcolor="#D9D9D9" style='width:87.2125pt;
+  height:23.3676pt;padding-left:2.88pt;padding-right:2.88pt;padding-top:2.88pt;
+  padding-bottom:2.88pt;background:#D9D9D9;border:solid white 1.0pt'>
+  <p class=MsoNormal><span lang=en-GB style='language:en-GB'>&nbsp;</span></p>
+  </td>
+  <td width=117 height=32 valign=Top bgcolor="#D9D9D9" style='width:87.2125pt;
+  height:23.3676pt;padding-left:2.88pt;padding-right:2.88pt;padding-top:2.88pt;
+  padding-bottom:2.88pt;background:#D9D9D9;border:solid white 1.0pt'>
+  <p class=MsoNormal><span lang=en-GB style='language:en-GB'>City</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=116 height=31 valign=Top bgcolor="#ECECEC" style='width:87.2125pt;
+  height:23.3677pt;padding-left:2.88pt;padding-right:2.88pt;padding-top:2.88pt;
+  padding-bottom:2.88pt;background:#ECECEC;border:solid white 1.0pt'>
+  <p class=MsoNormal><span lang=en-GB style='language:en-GB'>Rate per Day/room</span></p>
+  </td>
+  <td width=117 height=31 valign=Top bgcolor="#ECECEC" style='width:87.2125pt;
+  height:23.3677pt;padding-left:2.88pt;padding-right:2.88pt;padding-top:2.88pt;
+  padding-bottom:2.88pt;background:#ECECEC;border:solid white 1.0pt'>
+  <p class=MsoNormal><span lang=en-GB style='language:en-GB'>{{ cost }} </span></p>
+  </td>
+  <td width=116 height=31 valign=Top bgcolor="#ECECEC" style='width:87.2125pt;
+  height:23.3677pt;padding-left:2.88pt;padding-right:2.88pt;padding-top:2.88pt;
+  padding-bottom:2.88pt;background:#ECECEC;border:solid white 1.0pt'>
+  <p class=MsoNormal><span lang=en-GB style='language:en-GB'>&nbsp;</span></p>
+  </td>
+  <td width=116 height=31 valign=Top bgcolor="#ECECEC" style='width:87.2125pt;
+  height:23.3677pt;padding-left:2.88pt;padding-right:2.88pt;padding-top:2.88pt;
+  padding-bottom:2.88pt;background:#ECECEC;border:solid white 1.0pt'>
+  <p class=MsoNormal><span lang=en-GB style='language:en-GB'>&nbsp;</span></p>
+  </td>
+  <td width=116 height=31 valign=Top bgcolor="#ECECEC" style='width:87.2125pt;
+  height:23.3677pt;padding-left:2.88pt;padding-right:2.88pt;padding-top:2.88pt;
+  padding-bottom:2.88pt;background:#ECECEC;border:solid white 1.0pt'>
+  <p class=MsoNormal><span lang=en-GB style='language:en-GB'>&nbsp;</span></p>
+  </td>
+  <td width=117 height=31 valign=Top bgcolor="#ECECEC" style='width:87.2125pt;
+  height:23.3677pt;padding-left:2.88pt;padding-right:2.88pt;padding-top:2.88pt;
+  padding-bottom:2.88pt;background:#ECECEC;border:solid white 1.0pt'>
+  <p class=MsoNormal><span lang=en-GB style='language:en-GB'>Phone</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=116 height=45 valign=Top bgcolor="#D9D9D9" style='width:87.2125pt;
+  height:33.9933pt;padding-left:2.88pt;padding-right:2.88pt;padding-top:2.88pt;
+  padding-bottom:2.88pt;background:#D9D9D9;border-left:solid white 1.0pt;
+  border-top:solid white 1.0pt;border-bottom:solid white 1.0pt'>
+  <p class=MsoNormal><span lang=en-GB style='language:en-GB'>Total cost</span></p>
+  </td>
+  <td width=117 height=45 valign=Top bgcolor="#D9D9D9" style='width:87.2125pt;
+  height:33.9933pt;padding-left:2.88pt;padding-right:2.88pt;padding-top:2.88pt;
+  padding-bottom:2.88pt;background:#D9D9D9;border-top:solid white 1.0pt;
+  border-bottom:solid white 1.0pt'>
+  <p class=MsoNormal><span lang=en-GB style='language:en-GB'>{{ total }} </span></p>
+  </td>
+  <td width=116 height=45 valign=Top bgcolor="#D9D9D9" style='width:87.2125pt;
+  height:33.9933pt;padding-left:2.88pt;padding-right:2.88pt;padding-top:2.88pt;
+  padding-bottom:2.88pt;background:#D9D9D9;border-top:solid white 1.0pt;
+  border-bottom:solid white 1.0pt'>
+  <p class=MsoNormal><span lang=en-GB style='language:en-GB'>&nbsp;</span></p>
+  </td>
+  <td width=116 height=45 valign=Top bgcolor="#D9D9D9" style='width:87.2125pt;
+  height:33.9933pt;padding-left:2.88pt;padding-right:2.88pt;padding-top:2.88pt;
+  padding-bottom:2.88pt;background:#D9D9D9;border-top:solid white 1.0pt;
+  border-bottom:solid white 1.0pt'>
+  <p class=MsoNormal><span lang=en-GB style='language:en-GB'>&nbsp;</span></p>
+  </td>
+  <td width=116 height=45 valign=Top bgcolor="#D9D9D9" style='width:87.2125pt;
+  height:33.9933pt;padding-left:2.88pt;padding-right:2.88pt;padding-top:2.88pt;
+  padding-bottom:2.88pt;background:#D9D9D9;border-top:solid white 1.0pt;
+  border-right:solid white 1.0pt;border-bottom:solid white 1.0pt'>
+  <p class=MsoNormal><span lang=en-GB style='language:en-GB'>&nbsp;</span></p>
+  </td>
+  <td width=117 height=45 valign=Top bgcolor="#D9D9D9" style='width:87.2125pt;
+  height:33.9933pt;padding-left:2.88pt;padding-right:2.88pt;padding-top:2.88pt;
+  padding-bottom:2.88pt;background:#D9D9D9;border:solid white 1.0pt'>
+  <p class=MsoNormal><span lang=en-GB style='language:en-GB'>{{ booking.customer.email }}</span></p>
+  </td>
+ </tr>
+</table>
 
 
-<body style=" background-color: rgba(38,225,255,0.33);">
-
-<div class="row" style="margin-top: 10px;">
-
-
-
-    <div class="col-11 center-block">
-                <div class="btn-group btn-group-lg" role="group" aria-label="...">
-                    <button class="btn btn-outline-info mb-2" onclick="window.location='{{ url_for('booking', id=booking.id) }}'" >Back to booking overview</button>
-        <button class="btn btn-success mb-2" onclick="printDiv('invoice')">Print Invoice</button>
-        <button class="btn btn-success mb-2" onclick="window.location='{{ url_for('invoice_out') }}'">Printed!</button>
-                </div>
-
-        <hr>
-        <div id="invoice">
-            <p class="text-right display-2">Invoice</p>
-            <p class="text-left display-4"><b>{{ details["bus_name"] }}</b></p>
-            <p class="text-left display-5">
-                {{ details["house_name"] }}
-                {{ details["street"] }} <br>
-                {{ details["village"] }} <br>
-                {{ details["maj_town"] }} <br>
-                {{ details["county"] }} <br>
-                {{ details["postcode"] }} <br>
-                {{ details["telephone"] }} <br>
-            </p>
-            <p class="text-right display-4">{{ flipDate(date) }}</p>
-
-            <hr>
-            <p class="display-5">
-                    Customer details:
-                <br>
-                Name: {{ booking.customer.name }}
-                <br>
-                Invoice reference: {{ details["invoice_number"] }}
-                <br>
-                Arrival Date: {{ flipDate(  booking.start_date)}}
-                <br>
-                Departure Date: {{ flipDate(booking.end_date)}}
-                <br>
-                Room: {{ booking.room.number }}
-
-            </p>
-
-            <br>
-            <hr>
-            <p class="display-3">
-                <table class="table table-bordered table-primary">
-                    <thead>
-                    <tr>
-                        <th scope="col">Nights</th>
-                        <th scope="col">Cost per night</th>
-                        <th scope="col">Total cost</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>{{ booking.length }}</td>
-                        <td>£{{ cost }}</td>
-                        <td>£{{ total }}</td>
-                    </tr>
-                    </tbody>
-
-                </table>
-                <br>
-                <b>Total to pay: £{{ total }}</b>
-                <br>
-                <hr>
-            </p>
-            <p class="display-3">
-
-                <br>
-                <br>
-                <div>
-                    -----------------
-                    <br>Manager
-                </div>
-            </p>
-        </div>
-
-
-    </div>
 </div>
-</div>
-<script>
-    function printDiv(divName) {
-        var printContents = document.getElementById(divName).innerHTML;
-        var originalContents = document.body.innerHTML;
 
-        document.body.innerHTML = printContents;
-
-        window.print();
-
-        document.body.innerHTML = originalContents;
-    }
-</script>
 </body>
+
+</html>
