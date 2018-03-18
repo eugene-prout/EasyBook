@@ -86,7 +86,7 @@ class ChangeBooking(FlaskForm):
 class NewRoom(FlaskForm):
     number = wtforms.IntegerField('Room number',
                                   validators=[validators.DataRequired(),
-                                              validators.number_range(min=1, message="Room number must be above 1")], placeholder="Arrival date")
+                                              validators.number_range(min=1, message="Room number must be above 1")])
     capacity = wtforms.IntegerField('Room capacity',
                                     validators=[validators.DataRequired(),
                                                 validators.number_range(min=1, message="Capacity must be above 1")])
@@ -96,3 +96,19 @@ class NewRoom(FlaskForm):
 class GetCost(FlaskForm):
     cost = wtforms.DecimalField('Cost per night', validators=[validators.DataRequired()])
     submit = wtforms.SubmitField('Select booking')
+
+#TODO: finish update forms
+
+
+class UserDetails(FlaskForm):
+    name = wtforms.StringField("Name/Number", validators=[validators.DataRequired()])
+    bus_name = wtforms.StringField("Business Name")
+    house_name = wtforms.StringField("House name/number")
+    street = wtforms.StringField("Street")
+    village = wtforms.StringField("Village")
+    maj_town = wtforms.StringField("Town/city")
+    county = wtforms.StringField("County")
+    postcode = wtforms.StringField("Postcode")
+    telephone = wtforms.StringField("Telephone Number")
+    email = wtforms.StringField("Email", validators=[validators.email()])
+    submit = wtforms.SubmitField('Save address')

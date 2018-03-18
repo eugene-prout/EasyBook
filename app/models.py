@@ -1,5 +1,6 @@
 from datetime import datetime
 from app import db
+from functools import lru_cache
 
 
 class Customer(db.Model):
@@ -30,7 +31,7 @@ class Room(db.Model):
     def who_booked(self, date):
         for booking in self.bookings:
             if (booking.start_date <= date) and (booking.end_date >= date):
-                return Customer.query.filter_by(id=booking.customer_id).first()
+                return Customer.query.get(id=booking.customer_id)
         else:
             return None
 
@@ -57,3 +58,20 @@ class Booking(db.Model):
         return '<Booking Room: {}, Customer: {}, Start: {}, End: {}>'.format(self.room_id, self.customer_id,
                                                                              self.start_date, self.end_date)
 
+
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String)
+    bus_name = db.Column(db.String)
+    house_name = db.Column(db.String)
+    street = db.Column(db.String)
+    village = db.Column(db.String)
+    maj_town = db.Column(db.String)
+    county = db.Column(db.String)
+    postcode = db.Column(db.String)
+    telephone = db.Column(db.String)
+
+    def __repr__(self):
+        return '<Name: {}, House: {}, Street: {}, Village: {}, Town: {}, County: {}, Postcode: {}, Telephone: {}>'\
+            .format(self.name, self.house_name, self.street, self.village, self.maj_town, self.county, self.postcode,
+                    self.telephone)

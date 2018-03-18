@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+
+{% block body %}
+    <div id="main" class="container">
+        <h2>All Bookings</h2>
+        <table class="table table-hover table-bordered">
+            <tr>
+                <th>Id
+                <th>Customer
+                <th>Room
+                <th>Check In
+                <th>Check Out
+                    {%- for booking in bookings %}
+                        <tr>
+                        <td> <a href="{{ url_for('booking', id=booking.id) }}"> {{ booking.id }} </a>
+                        <td>{{ booking.customer.name }}
+                        <td>{{ booking.room.number }}
+                        <td>{{ booking.start_date }}
+                        <td> {{ booking.end_date }}
+                    {%- endfor %}
+        </table>
+        <p>
+            <a href="{{ url_for('new_booking') }}" class="btn btn-large btn-primary">New booking</a>
+
+
+    </div>
+{% endblock %}
